@@ -19,7 +19,7 @@ AdminUI::AdminUI(QObject *controller) :
     ui->setupUi(this);
     this->setUpTableView();
 
-    connect(ui->pushButtonCancel, SIGNAL(clicked()), controller, SLOT(onUIAdminCancel()));
+    //connect(ui->pushButtonCancel, SIGNAL(clicked()), controller, SLOT(onUIAdminCancel()));
     connect(ui->pushButtonSubmit, SIGNAL(clicked()), this, SLOT(onSubmitClicked()));
     connect(ui->pushButtonDelete, SIGNAL(clicked()), this, SLOT(onDeleteClicked()));
     connect(ui->pushButtonClear, SIGNAL(clicked()), this, SLOT(onClearClicked()));
@@ -36,7 +36,7 @@ void AdminUI::setUpTableView()
     model = new UserModel(DBAccess::getInstance());
 
     ui->tableViewUsers->setModel(model);
-    ui->tableViewUsers->hideColumn(4); // don't show the Password
+    //ui->tableViewUsers->hideColumn(4); // don't show the Password
     ui->tableViewUsers->show();
 
     selectFirstRow();
@@ -55,12 +55,11 @@ bool AdminUI::closeConfirmation()
 
 bool AdminUI::getUserInformations(User *user)
 {
-
+    QString matricule = ui->lineEditMatricule->text();
     QString nom = ui->lineEditNom->text();
     QString prenom = ui->lineEditPrenom->text();
     QString date_naiss = ui->lineEditDate->text();
     QString addresse = ui->lineEditAdresse->text();
-    uint nbre_conges = ui->lineEditConges->text().toUInt();
     QString login = ui->lineEditLogin->text();
     QString password = ui->lineEditPassword->text();
 
@@ -86,7 +85,7 @@ bool AdminUI::getUserInformations(User *user)
     user->setPrenom(prenom);
     user->setDate_naiss(date_naiss);
     user->setAdresse(addresse);
-    user->setNbre_conges(nbre_conges);
+    user->setMatricule(matricule);
     user->setMail(login);
     user->setPassword(password);
 
@@ -194,11 +193,11 @@ void AdminUI::populate(uint row)
     QSqlField field = record.field(0);
 
     ui->lineEditIdentifiant->setText(field.value().toString());
-    ui->lineEditNom->setText(record.field(1).value().toString());
-    ui->lineEditPrenom->setText(record.field(2).value().toString());
-    ui->lineEditDate->setText(record.field(3).value().toString());
-    ui->lineEditAdresse->setText(record.field(4).value().toString());
-    ui->lineEditConges->setText(record.field(5).value().toString());
+    ui->lineEditMatricule->setText(record.field(1).value().toString());
+    ui->lineEditNom->setText(record.field(2).value().toString());
+    ui->lineEditPrenom->setText(record.field(3).value().toString());
+    ui->lineEditDate->setText(record.field(4).value().toString());
+    ui->lineEditAdresse->setText(record.field(5).value().toString());
     ui->lineEditLogin->setText(record.field(6).value().toString());
     ui->lineEditPassword->clear();
 }
@@ -250,7 +249,7 @@ void AdminUI::clear()
     ui->lineEditPrenom->clear();
     ui->lineEditDate->clear();
     ui->lineEditAdresse->clear();
-    ui->lineEditConges->clear();
+    ui->lineEditMatricule->clear();
     ui->lineEditLogin->clear();
     ui->lineEditPassword->clear();
     ui->lineEditSearch->clear();

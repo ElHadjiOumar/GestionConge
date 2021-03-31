@@ -22,18 +22,19 @@ class EmployeUI : public QMainWindow
 public:
     explicit EmployeUI(QWidget *parent = nullptr);
 
-    explicit EmployeUI(QObject *controller);
+    explicit EmployeUI(User *user,QObject *controller);
 
     bool closeConfirmation();
    /* void activateCreate();
     void activateUpdate();*/
     ~EmployeUI();
+    void validerCommande(User *user);
 
 private slots:
     void onTableClicked(const QModelIndex &index);
     //void onRadioCreateClicked();
     //void onRadioUpdateClicked();
-    void onSubmitClicked();
+    //void onSubmitClicked();
     //void onDeleteClicked();
     void onClearClicked();
     //void onSearchClicked();
@@ -43,10 +44,13 @@ private:
     CongeModel *model;
     Authentification *authentification;
 
+
+
+    void setInformation();
     bool getInformations(Conge *conge);
     void setUpTableView();
     void populate(uint row);
-    void createConge();
+    void createConge(User *user);
     void updateConge();
     void clear();
     void selectFirstRow();

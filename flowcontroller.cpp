@@ -1,3 +1,4 @@
+
 #include "flowcontroller.h"
 #include "dbaccess.h"
 #include <QDebug>
@@ -13,19 +14,29 @@ void FlowController::onAuthentificationSubmit()
     {
         authentification->close();
         QString userType = authentification->getUser().getType();
-        QString login = authentification->getUser().getMail();
-        QString password = authentification->getUser().getPassword();
+        QString matricule = authentification->getUser().getMatricule();
+
+        //User user = authentification->getUser();
+        User employe = authentification->getUser();
 
         if (userType.compare("administrateur")==0 ){
             adminUI = new AdminUI(this);
             adminUI->show();
         }
          if(userType.compare("employe")==0){
-            employeUI = new EmployeUI(this);
+            employeUI = new EmployeUI(&employe ,this);
+
             employeUI->show();
         }
-
     }
+}
+
+void FlowController::onSubmitEmployeClicked()
+{
+    User employe = authentification->getUser();
+    employeUI->validerCommande(&employe);
+
+
 }
 
 void FlowController::exec()
@@ -40,7 +51,6 @@ FlowController::~FlowController()
     {
         delete authentification;
     }
-
 
     DBAccess::release();
     QSqlDatabase::removeDatabase(connection);

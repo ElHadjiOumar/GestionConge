@@ -1,26 +1,33 @@
 #include "employeui.h"
 #include "ui_employeui.h"
 
+#include "user.h"
 #include <QDebug>
 #include <QSqlRecord>
 #include <QSqlField>
 #include <QMessageBox>
 
-EmployeUI::EmployeUI(QWidget *parent) : QMainWindow(parent),ui(new Ui::EmployeUI),authentification(nullptr)
+EmployeUI::EmployeUI(QWidget *parent) : QMainWindow(parent),ui(new Ui::EmployeUI)
 {
     ui->setupUi(this);
 }
-EmployeUI::EmployeUI(QObject *controller) : ui(new Ui::EmployeUI),authentification(nullptr)
+EmployeUI::EmployeUI(User *user ,QObject *controller) : ui(new Ui::EmployeUI)
 {
     ui->setupUi(this);
     this->setUpTableView();
 
+
     //connect(ui->pushButtonCancel, SIGNAL(clicked()), controller, SLOT(onUIAdminCancel()));
-    connect(ui->pushButtonSubmit, SIGNAL(clicked()), this, SLOT(onSubmitClicked()));
+    //connect(ui->pushButtonSubmit, SIGNAL(clicked()), controller, SLOT(onSubmitClicked()));
+    connect(ui->pushButtonSubmit, SIGNAL(clicked()), controller, SLOT(onSubmitEmployeClicked()));
     connect(ui->pushButtonClear, SIGNAL(clicked()), this, SLOT(onClearClicked()));
     connect(ui->tableViewUsers, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClicked(const QModelIndex &)));
 
-    qDebug() << "AdminUI Object is created.";
+    //ui->lineEditId->setText(user.getMatricule());
+    //user.setId(employe_id.toUInt());
+
+    model->readConge(user->getNom());
+    qDebug() << "EmployeUI Object is created. l'id est " << user->getMail();
 }
 
 void EmployeUI::setUpTableView()
@@ -28,7 +35,7 @@ void EmployeUI::setUpTableView()
     model = new CongeModel(DBAccess::getInstance());
 
     ui->tableViewUsers->setModel(model);
-    ui->tableViewUsers->hideColumn(4); // don't show the Password
+    //ui->tableViewUsers->hideColumn(4); // don't show the Password
     ui->tableViewUsers->show();
 
     selectFirstRow();
@@ -47,8 +54,7 @@ bool EmployeUI::closeConfirmation()
 
 bool EmployeUI::getInformations(Conge *conge)
 {
-
-    QString employe_id = ui->lineEditEmploye->text();
+    //QString employe_id = ui->lineEditId->text();
     QString nbre_conge = ui->lineEditConge->text();
     QString date_debut = ui->lineEditDateDebut->text();
     QString date_fin = ui->lineEditDateFin->text();
@@ -59,8 +65,7 @@ bool EmployeUI::getInformations(Conge *conge)
         QMessageBox::critical(this, "Error", "Veuillez remplir tous les champs!");
         return false;
     }
-     employe_id = authentification->getUser().getId();
-    ui->lineEditEmploye->setText(employe_id);
+    //ui->lineEditEmploye->setText(employe_id);
 
 
     /*if (ui->radioButtonUpdate->isChecked()) // Update process ...
@@ -74,7 +79,8 @@ bool EmployeUI::getInformations(Conge *conge)
 
         user->setId(identifiant.toUInt());
     }*/
-    conge->setEmploye_id(employe_id.toUInt());
+    //employe_id = user->getMatricule();
+    //conge->setEmploye_id(employe_id.toUInt());
     conge->setNbre_conge(nbre_conge.toUInt());
     conge->setDate_debut(date_debut);
     conge->setDate_fin(date_fin);
@@ -82,12 +88,13 @@ bool EmployeUI::getInformations(Conge *conge)
     return true;
 }
 
-void EmployeUI::createConge()
+
+void EmployeUI::createConge(User *user)
 {
     Conge conge;
     if (true == getInformations(&conge))
     {
-        model->create(conge);
+        model->create(*user, conge);
         clear();
     }
 }
@@ -104,9 +111,9 @@ void EmployeUI::selectFirstRow()
     }
 }
 
-void EmployeUI::onSubmitClicked()
+void EmployeUI::validerCommande(User *user)
 {
-        createConge();
+        createConge(user);
 }
 
 
@@ -115,7 +122,6 @@ void EmployeUI::populate(uint row)
     QSqlRecord record = model->record(row);
     QSqlField field = record.field(0);
 
-    ui->lineEditEmploye->setText(record.field(1).value().toString());
     ui->lineEditConge->setText(record.field(2).value().toString());
     ui->lineEditDateDebut->setText(record.field(3).value().toString());
     ui->lineEditDateFin->setText(record.field(4).value().toString());
@@ -133,14 +139,12 @@ void EmployeUI::onTableClicked(const QModelIndex &index)
 void EmployeUI::onClearClicked()
 {
     clear();
-    model->clear();
 }
 
 
 void EmployeUI::clear()
 {
 
-    ui->lineEditEmploye->clear();
     ui->lineEditConge->clear();
     ui->lineEditDateDebut->clear();
     ui->lineEditDateFin->clear();

@@ -25,7 +25,7 @@ DBAccess::DBAccess()
      * Créer une base de données SQLITE avec "DB browser for SQLite"
     */
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("gestionconge.db");
+    db.setDatabaseName("users.db");
     //db.setDatabaseName("C:/Users/HP 450 G5/Documents/MPSI/C++/QT/GestionProjet/build-GestionConge-Desktop_Qt_5_14_0_MinGW_32_bit-Debug/gestionconge.db");
 
     qDebug() << "DBAccess Object created and 'users.db' has been added as default database!";

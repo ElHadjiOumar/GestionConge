@@ -10,24 +10,24 @@ CongeModel::CongeModel(DBAccess *dbAccess)
     clear();
 }
 
-void CongeModel::create(Conge conge)
+void CongeModel::create(User user,Conge conge)
 {
     dbAccess->open();
 
     QSqlQuery query(dbAccess->database());
     query.prepare("INSERT INTO t_conge (employe_id, nbre_conge, date_debut,date_fin,status) "
-                    ":employe_id, :nbre_conge, :date_debut,:date_fin,:status)");
-    query.bindValue(":employe_id", conge.getEmploye_id());
+                    "VALUES (:employe_id, :nbre_conge, :date_debut, :date_fin, :status)");
     query.bindValue(":nbre_conge", conge.getNbre_conge());
+    query.bindValue(":employe_id", user.getNom());
     query.bindValue(":date_debut", conge.getDate_debut());
     query.bindValue(":date_fin", conge.getDate_fin());
     query.bindValue(":status", conge.getStatus());
 
     query.exec();
 
-    readAll();
+    readConge(user.getNom());
 
-    qDebug () << "User avec l'id " << conge.getEmploye_id() << "created successfully!";
+    qDebug () << "Le conge avec le nbre de conge =  " << conge.getNbre_conge() << "created successfully!";
     dbAccess->close();
 }
 
@@ -50,12 +50,17 @@ void CongeModel::readAll()
     dbAccess->close();
 }
 
-/*void CongeModel::readAll()
+void CongeModel::readConge(QString employe_id)
 {
     dbAccess->open();
 
     QSqlDatabase database = dbAccess->database();
-    this->setQuery("SELECT id, employe_id, nbre_conge, date_debut,date_fin,status FROM t_conge INNER JOIN t_users ON t_conge.employe_id = t_user.id", database);
+    QSqlQuery query(dbAccess->database());
+
+    this->setQuery("SELECT id, employe_id, nbre_conge, date_debut,date_fin,status FROM t_conge WHERE employe_id=:employe_id", database);
+    query.bindValue(":employe_id", employe_id);
+
+
 
     this->setHeaderData(0, Qt::Horizontal, tr("Id"));
     this->setHeaderData(1, Qt::Horizontal, tr("Employe_id"));
@@ -67,7 +72,7 @@ void CongeModel::readAll()
 
     qDebug () << "Conges displayed successfully!";
     dbAccess->close();
-}*/
+}
 
 /*void CongeModel::update(Conge conge)
 {
@@ -107,9 +112,6 @@ void CongeModel::clear()
     this->setHeaderData(3, Qt::Horizontal, tr("Date de Debut"));
     this->setHeaderData(4, Qt::Horizontal, tr("Date de Fin"));
     this->setHeaderData(5, Qt::Horizontal, tr("Status"));
-
-
-
 
     dbAccess->close();
 }

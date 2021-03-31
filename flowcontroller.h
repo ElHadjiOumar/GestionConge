@@ -20,6 +20,7 @@ private:
 
 private slots:
     void onAuthentificationSubmit();
+    void onSubmitEmployeClicked();
 
 
 public:
