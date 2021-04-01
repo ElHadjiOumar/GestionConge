@@ -51,21 +51,18 @@
     <property name="geometry">
      <rect>
       <x>490</x>
-      <y>40</y>
+      <y>80</y>
       <width>281</width>
-      <height>166</height>
+      <height>203</height>
      </rect>
     </property>
     <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0">
       <widget class="QLabel" name="labelConge_2">
        <property name="text">
-        <string>nbre_conge</string>
+        <string>Nombre de conge</string>
        </property>
       </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEditConge"/>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="labelDateDebut">
@@ -74,18 +71,12 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEditDateDebut"/>
-     </item>
      <item row="2" column="0">
       <widget class="QLabel" name="labelDateFin">
        <property name="text">
         <string>Date de fin</string>
        </property>
       </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEditDateFin"/>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="labelStatus">
@@ -101,12 +92,31 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
+     <item row="5" column="0">
       <widget class="QLabel" name="labelPassword">
        <property name="text">
         <string/>
        </property>
       </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Motif de conge</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QPlainTextEdit" name="plainTextEdit"/>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="lineEditConge"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QDateEdit" name="dateEditDebut"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QDateEdit" name="dateEditFin"/>
      </item>
     </layout>
    </widget>
@@ -114,7 +124,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>60</y>
       <width>461</width>
       <height>231</height>
      </rect>
@@ -155,6 +165,25 @@
     </property>
     <property name="text">
      <string>Profile</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>20</y>
+      <width>181</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Myanmar Text</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Page Demande de Conge </string>
     </property>
    </widget>
   </widget>

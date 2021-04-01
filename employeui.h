@@ -27,8 +27,9 @@ public:
     bool closeConfirmation();
    /* void activateCreate();
     void activateUpdate();*/
-    ~EmployeUI();
+
     void validerCommande(User *user);
+    ~EmployeUI();
 
 private slots:
     void onTableClicked(const QModelIndex &index);

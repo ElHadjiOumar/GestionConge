@@ -26,7 +26,7 @@ public:
     //bool readBy(QString employe_id);
     //bool readBy(QString mail, QString password, User *user);
     void readAll();
-    void readConge(QString employe_id);
+    void readConge(User *user);
 };
 
 #endif // CONGEMODEL_H

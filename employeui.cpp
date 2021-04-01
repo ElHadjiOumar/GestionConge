@@ -26,8 +26,8 @@ EmployeUI::EmployeUI(User *user ,QObject *controller) : ui(new Ui::EmployeUI)
     //ui->lineEditId->setText(user.getMatricule());
     //user.setId(employe_id.toUInt());
 
-    model->readConge(user->getNom());
-    qDebug() << "EmployeUI Object is created. l'id est " << user->getMail();
+    model->readConge(user);
+    qDebug() << "EmployeUI Object is created. l'id est " << user->getNom();
 }
 
 void EmployeUI::setUpTableView()
@@ -54,13 +54,13 @@ bool EmployeUI::closeConfirmation()
 
 bool EmployeUI::getInformations(Conge *conge)
 {
-    //QString employe_id = ui->lineEditId->text();
     QString nbre_conge = ui->lineEditConge->text();
-    QString date_debut = ui->lineEditDateDebut->text();
-    QString date_fin = ui->lineEditDateFin->text();
+    QString date_debut = ui->dateEditDebut->text();
+    QString date_fin = ui->dateEditFin->text();
     QString status = ui->lineEditStatus->text();
+    QString motif = ui->plainTextEdit->toPlainText();
 
-    if ( nbre_conge.isEmpty() ||date_debut.isEmpty() || date_fin.isEmpty()  )
+    if ( nbre_conge.isEmpty() ||date_debut.isEmpty() || date_fin.isEmpty() || motif.isEmpty()  )
     {
         QMessageBox::critical(this, "Error", "Veuillez remplir tous les champs!");
         return false;
@@ -84,6 +84,7 @@ bool EmployeUI::getInformations(Conge *conge)
     conge->setNbre_conge(nbre_conge.toUInt());
     conge->setDate_debut(date_debut);
     conge->setDate_fin(date_fin);
+    conge->setMotif(motif);
 
     return true;
 }
@@ -114,6 +115,7 @@ void EmployeUI::selectFirstRow()
 void EmployeUI::validerCommande(User *user)
 {
         createConge(user);
+        clear();
 }
 
 
@@ -123,9 +125,10 @@ void EmployeUI::populate(uint row)
     QSqlField field = record.field(0);
 
     ui->lineEditConge->setText(record.field(2).value().toString());
-    ui->lineEditDateDebut->setText(record.field(3).value().toString());
-    ui->lineEditDateFin->setText(record.field(4).value().toString());
+    ui->dateEditDebut->setDate(record.field(3).value().toDate());
+    ui->dateEditFin->setDate(record.field(4).value().toDate());
     ui->lineEditStatus->setText(record.field(5).value().toString());
+    ui->plainTextEdit->setPlainText(record.field(6).value().toString());
 }
 
 void EmployeUI::onTableClicked(const QModelIndex &index)
@@ -146,9 +149,10 @@ void EmployeUI::clear()
 {
 
     ui->lineEditConge->clear();
-    ui->lineEditDateDebut->clear();
-    ui->lineEditDateFin->clear();
+    ui->dateEditDebut->clear();
+    ui->dateEditFin->clear();
     ui->lineEditStatus->clear();
+    ui->plainTextEdit->clear();
 
 }
 

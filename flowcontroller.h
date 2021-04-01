@@ -4,6 +4,8 @@
 #include <QObject>
 #include "adminui.h"
 #include "employeui.h"
+#include "managerui.h"
+#include "drhui.h"
 #include "authentification.h"
 
 
@@ -16,11 +18,15 @@ private:
     Authentification *authentification;
     AdminUI *adminUI;
     EmployeUI *employeUI;
+    ManagerUI *managerUI;
+    DrhUI *drhUI;
     QString connection;
 
 private slots:
     void onAuthentificationSubmit();
     void onSubmitEmployeClicked();
+    //void onSubmitManagerClicked();
+
 
 
 public:
