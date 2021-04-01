@@ -14,7 +14,6 @@ void FlowController::onAuthentificationSubmit()
     {
         authentification->close();
         QString userType = authentification->getUser().getType();
-        QString matricule = authentification->getUser().getMatricule();
 
         User user = authentification->getUser();
 
@@ -29,9 +28,8 @@ void FlowController::onAuthentificationSubmit()
             employeUI->show();
         }else if(userType.compare("manager")==0){
 
-           // managerUI = new ManagerUI(&user ,this);
-
-//            employeUI->show();
+            managerUI = new ManagerUI(this);
+            managerUI->show();
         }
 
     }
@@ -45,6 +43,7 @@ void FlowController::onSubmitEmployeClicked()
 
 }
 
+
 void FlowController::exec()
 {
     authentification = new Authentification(this);
@@ -56,6 +55,12 @@ FlowController::~FlowController()
     if (authentification != nullptr)
     {
         delete authentification;
+    }else if (employeUI != nullptr)
+    {
+        delete employeUI;
+    }else if (managerUI != nullptr)
+    {
+        delete managerUI;
     }
 
     DBAccess::release();

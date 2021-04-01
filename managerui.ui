@@ -17,24 +17,17 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>380</x>
       <y>360</y>
       <width>395</width>
       <height>31</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="3">
+     <item row="0" column="2">
       <widget class="QPushButton" name="pushButtonCancel">
        <property name="text">
         <string>Cancel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QPushButton" name="pushButtonClear">
-       <property name="text">
-        <string>Clear</string>
        </property>
       </widget>
      </item>
@@ -47,76 +40,149 @@
      </item>
     </layout>
    </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>50</y>
+      <width>181</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Myanmar Text</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Page Demande de Conge </string>
+    </property>
+   </widget>
    <widget class="QWidget" name="formLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>70</y>
+      <x>500</x>
+      <y>110</y>
       <width>281</width>
-      <height>166</height>
+      <height>248</height>
      </rect>
     </property>
     <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0">
-      <widget class="QLabel" name="labelConge_2">
+      <widget class="QLabel" name="labelId">
        <property name="text">
-        <string>nbre_conge</string>
+        <string>Identifiant :</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEditConge">
+      <widget class="QLineEdit" name="lineEditIdentifiant">
        <property name="readOnly">
         <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="labelDateDebut">
-       <property name="text">
-        <string>Date de Debut</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEditDateDebut">
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="lineEditDebut">
        <property name="readOnly">
         <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
+     <item row="4" column="0">
       <widget class="QLabel" name="labelDateFin">
        <property name="text">
         <string>Date de fin</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEditDateFin">
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="lineEditFin">
        <property name="readOnly">
         <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
+     <item row="5" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Motif de conge</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QPlainTextEdit" name="plainTextEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
       <widget class="QLabel" name="labelStatus">
        <property name="text">
         <string>Status</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="lineEditStatus">
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
+     <item row="6" column="1">
+      <widget class="QComboBox" name="statusBox">
+       <item>
+        <property name="text">
+         <string/>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Refusé</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Accepté</string>
+        </property>
+       </item>
       </widget>
      </item>
-     <item row="4" column="0">
+     <item row="7" column="0">
       <widget class="QLabel" name="labelPassword">
        <property name="text">
         <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="labelDateDebut">
+       <property name="text">
+        <string>Date de Debut</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="lineEditConge">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="labelConge_2">
+       <property name="text">
+        <string>Nombre de conge</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="lineEditEmploye">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="labelId_2">
+       <property name="text">
+        <string>Nom Employe</string>
        </property>
       </widget>
      </item>
@@ -125,8 +191,8 @@
    <widget class="QTableView" name="tableViewUsers">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>40</y>
+      <x>20</x>
+      <y>90</y>
       <width>461</width>
       <height>231</height>
      </rect>
@@ -159,7 +225,7 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>30</x>
       <y>360</y>
       <width>121</width>
       <height>31</height>

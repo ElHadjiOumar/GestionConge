@@ -25,7 +25,6 @@ private:
 private slots:
     void onAuthentificationSubmit();
     void onSubmitEmployeClicked();
-    //void onSubmitManagerClicked();
 
 
 

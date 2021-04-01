@@ -55,8 +55,8 @@ bool EmployeUI::closeConfirmation()
 bool EmployeUI::getInformations(Conge *conge)
 {
     QString nbre_conge = ui->lineEditConge->text();
-    QString date_debut = ui->dateEditDebut->text();
-    QString date_fin = ui->dateEditFin->text();
+    QString date_debut = ui->lineEditDebut->text();
+    QString date_fin = ui->lineEditFin->text();
     QString status = ui->lineEditStatus->text();
     QString motif = ui->plainTextEdit->toPlainText();
 
@@ -125,8 +125,8 @@ void EmployeUI::populate(uint row)
     QSqlField field = record.field(0);
 
     ui->lineEditConge->setText(record.field(2).value().toString());
-    ui->dateEditDebut->setDate(record.field(3).value().toDate());
-    ui->dateEditFin->setDate(record.field(4).value().toDate());
+    ui->lineEditDebut->setText(record.field(3).value().toString());
+    ui->lineEditFin->setText(record.field(4).value().toString());
     ui->lineEditStatus->setText(record.field(5).value().toString());
     ui->plainTextEdit->setPlainText(record.field(6).value().toString());
 }
@@ -149,8 +149,8 @@ void EmployeUI::clear()
 {
 
     ui->lineEditConge->clear();
-    ui->dateEditDebut->clear();
-    ui->dateEditFin->clear();
+    ui->lineEditDebut->clear();
+    ui->lineEditFin->clear();
     ui->lineEditStatus->clear();
     ui->plainTextEdit->clear();
 
@@ -160,7 +160,6 @@ void EmployeUI::clear()
 EmployeUI::~EmployeUI()
 {
     delete ui;
-    delete model;
 
     qDebug() << "AdminUI Object has been deleted!";
 }

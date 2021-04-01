@@ -6,11 +6,11 @@ class Conge
 {
 public:
     Conge();
-    Conge(uint,uint,uint,QString,QString,QString,QString);
-    Conge(uint,uint,QString,QString,QString,QString);
+    Conge(uint,QString,uint,QString,QString,QString,QString);
+    Conge(QString,uint,QString,QString,QString,QString);
 
     uint getId() { return id; }
-    uint getEmploye_id() {return employe_id;}
+    QString getEmploye_id() {return employe_id;}
     uint getNbre_conge() {return nbre_conge;}
     QString getDate_debut() {return date_debut;}
     QString getDate_fin() {return date_fin;}
@@ -19,7 +19,7 @@ public:
 
 
     void setId(uint id) { this->id = id; }
-    void setEmploye_id(uint employe_id) { this->employe_id = employe_id; }
+    void setEmploye_id(QString employe_id) { this->employe_id = employe_id; }
     void setNbre_conge(uint nbre_conge) { this->nbre_conge = nbre_conge; }
     void setDate_debut(QString date_debut) { this->date_debut = date_debut; }
     void setDate_fin(QString date_fin) { this->date_fin = date_fin; }
@@ -30,11 +30,11 @@ public:
 private:
 
     uint id;
-    uint employe_id;
+    QString employe_id;
     uint nbre_conge;
     QString date_debut;
     QString date_fin;
-    QString motif;
     QString status;
+    QString motif;
 };
 #endif // CONGE_H

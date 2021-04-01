@@ -21,23 +21,15 @@ class ManagerUI : public QMainWindow
 
 public:
     explicit ManagerUI(QWidget *parent = nullptr);
-     explicit ManagerUI(User *user,QObject *controller);
+     explicit ManagerUI(QObject *controller);
 
     bool closeConfirmation();
-   /* void activateCreate();
-    void activateUpdate();*/
-
-    void validerCommande(User *user);
 
     ~ManagerUI();
 
 private slots:
-    //void onTableClicked(const QModelIndex &index);
-    //void onRadioCreateClicked();
-    //void onRadioUpdateClicked();
-    //void onSubmitClicked();
-    //void onDeleteClicked();
-    //void onClearClicked();
+    void onTableClicked(const QModelIndex &index);
+        void onSubmitClicked();
 
 private:
     Ui::ManagerUI *ui;
@@ -48,8 +40,7 @@ private:
     bool getInformations(Conge *conge);
     void setUpTableView();
     void populate(uint row);
-    void updateConge(User *user);
-    void clear();
+    void updateConge();
     void selectFirstRow();
 };
 

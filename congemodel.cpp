@@ -72,28 +72,26 @@ void CongeModel::readConge(User *user)
 }
 
 
-/*void CongeModel::update(Conge conge)
+void CongeModel::update(Conge conge)
 {
     dbAccess->open();
 
     QSqlQuery query(dbAccess->database());
-    query.prepare("UPDATE t_users SET nom=:nom, prenom=:prenom, date_naiss=:date_naiss, addresse=:addresse,nbre_conges=:nbre_conges, mail=:mail,password=:password,type=:type WHERE id=:id");
-    query.bindValue(":nom", user.getNom());
-    query.bindValue(":prenom", user.getPrenom());
-    query.bindValue(":date_naiss", user.getDate_naiss());
-    query.bindValue(":addresse", user.getAddresse());
-    query.bindValue(":mail", user.getMail());
-    query.bindValue(":password", user.getPassword());
-    query.bindValue(":nbre_conges", user.getNbre_conges());
-    query.bindValue(":type", user.getType());
-    query.bindValue(":id", user.getId());
+    query.prepare("UPDATE t_conge SET employe_id=:employe_id, nbre_conge=:nbre_conge, date_debut=:date_debut, date_fin=:date_fin,status=:status, motif=:motif WHERE id=:id");
+    query.bindValue(":employe_id", conge.getEmploye_id());
+    query.bindValue(":nbre_conge", conge.getNbre_conge());
+    query.bindValue(":date_debut", conge.getDate_debut());
+    query.bindValue(":date_fin", conge.getDate_fin());
+    query.bindValue(":status", conge.getStatus());
+    query.bindValue(":motif", conge.getMotif());
+    query.bindValue(":id", conge.getId());
     query.exec();
 
     readAll();
 
-    qDebug () << "User" << user.getNom() << " updated successfully!" ;
+    qDebug () << "La demande de Conge de :" << conge.getEmploye_id() << " envoye avec succes !" ;
     dbAccess->close();
-}*/
+}
 
 
 
