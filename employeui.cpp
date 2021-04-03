@@ -1,7 +1,6 @@
 #include "employeui.h"
 #include "ui_employeui.h"
 
-#include "user.h"
 #include <QDebug>
 #include <QSqlRecord>
 #include <QSqlField>
@@ -18,7 +17,7 @@ EmployeUI::EmployeUI(User *user ,QObject *controller) : ui(new Ui::EmployeUI)
 
 
     //connect(ui->pushButtonCancel, SIGNAL(clicked()), controller, SLOT(onUIAdminCancel()));
-    //connect(ui->pushButtonSubmit, SIGNAL(clicked()), controller, SLOT(onSubmitClicked()));
+    connect(ui->pushButtonProfil, SIGNAL(clicked()), controller, SLOT(onProfilClicked()));
     connect(ui->pushButtonSubmit, SIGNAL(clicked()), controller, SLOT(onSubmitEmployeClicked()));
     connect(ui->pushButtonClear, SIGNAL(clicked()), this, SLOT(onClearClicked()));
     connect(ui->tableViewUsers, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClicked(const QModelIndex &)));
@@ -27,7 +26,7 @@ EmployeUI::EmployeUI(User *user ,QObject *controller) : ui(new Ui::EmployeUI)
     //user.setId(employe_id.toUInt());
 
     model->readConge(user);
-    qDebug() << "EmployeUI Object is created. l'id est " << user->getNom();
+    qDebug() << "EmployeUI Object is created. l'id est " << user->getMatricule();
 }
 
 void EmployeUI::setUpTableView()
@@ -54,38 +53,24 @@ bool EmployeUI::closeConfirmation()
 
 bool EmployeUI::getInformations(Conge *conge)
 {
-    QString nbre_conge = ui->lineEditConge->text();
-    QString date_debut = ui->lineEditDebut->text();
-    QString date_fin = ui->lineEditFin->text();
+    QDate date_debut = ui->dateEditDebut->date();
+    QDate date_fin = ui->dateEditFin->date();
     QString status = ui->lineEditStatus->text();
     QString motif = ui->plainTextEdit->toPlainText();
 
-    if ( nbre_conge.isEmpty() ||date_debut.isEmpty() || date_fin.isEmpty() || motif.isEmpty()  )
+    if ( date_debut.isNull() || date_fin.isNull() || motif.isEmpty()  )
     {
         QMessageBox::critical(this, "Error", "Veuillez remplir tous les champs!");
         return false;
     }
-    //ui->lineEditEmploye->setText(employe_id);
 
-
-    /*if (ui->radioButtonUpdate->isChecked()) // Update process ...
-    {
-        QString identifiant = ui->lineEditIdentifiant->text();
-        if (identifiant.isEmpty())
-        {
-            QMessageBox::critical(this, "Error", "Veuillez sélectionner un utilisateur svp!");
-            return false;
-        }
-
-        user->setId(identifiant.toUInt());
-    }*/
-    //employe_id = user->getMatricule();
-    //conge->setEmploye_id(employe_id.toUInt());
-    conge->setNbre_conge(nbre_conge.toUInt());
+    conge->setNbre_conge(date_debut.daysTo(date_fin));
     conge->setDate_debut(date_debut);
     conge->setDate_fin(date_fin);
     conge->setMotif(motif);
 
+
+    //qDebug() << "Nbre de jour  " << date_debut.daysTo(date_fin) ;
     return true;
 }
 
@@ -124,9 +109,8 @@ void EmployeUI::populate(uint row)
     QSqlRecord record = model->record(row);
     QSqlField field = record.field(0);
 
-    ui->lineEditConge->setText(record.field(2).value().toString());
-    ui->lineEditDebut->setText(record.field(3).value().toString());
-    ui->lineEditFin->setText(record.field(4).value().toString());
+    ui->dateEditDebut->setDate(record.field(3).value().toDate());
+    ui->dateEditFin->setDate(record.field(4).value().toDate());
     ui->lineEditStatus->setText(record.field(5).value().toString());
     ui->plainTextEdit->setPlainText(record.field(6).value().toString());
 }
@@ -148,9 +132,8 @@ void EmployeUI::onClearClicked()
 void EmployeUI::clear()
 {
 
-    ui->lineEditConge->clear();
-    ui->lineEditDebut->clear();
-    ui->lineEditFin->clear();
+    ui->dateEditDebut->clear();
+    ui->dateEditFin->clear();
     ui->lineEditStatus->clear();
     ui->plainTextEdit->clear();
 

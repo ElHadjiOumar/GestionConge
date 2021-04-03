@@ -6,6 +6,7 @@
 #include "employeui.h"
 #include "managerui.h"
 #include "drhui.h"
+#include "profilui.h"
 #include "authentification.h"
 
 
@@ -20,11 +21,13 @@ private:
     EmployeUI *employeUI;
     ManagerUI *managerUI;
     DrhUI *drhUI;
+    ProfilUI *profileUI;
     QString connection;
 
 private slots:
     void onAuthentificationSubmit();
     void onSubmitEmployeClicked();
+    void onProfilClicked();
 
 
 

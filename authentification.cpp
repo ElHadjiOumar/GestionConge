@@ -48,6 +48,7 @@ bool Authentification::validate()
     {
         QMessageBox::information(this, "Authentification",
                                  "Welcome default admin !");
+        return true;
 
     }
     else if (true == userModel.readBy(login, password, &user))
@@ -71,7 +72,7 @@ bool Authentification::validate()
         else
         {
             QMessageBox::information(this, "Authentification",
-                                     "Welcome Employe : " + user.getNom() + " " + user.getPrenom() + " !");
+                                     "Welcome Employe : " + user.getNom() + " " + user.getPrenom() +  " !");
         }
     }
     else

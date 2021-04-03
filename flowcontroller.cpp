@@ -42,6 +42,15 @@ void FlowController::onSubmitEmployeClicked()
 
 
 }
+void FlowController::onProfilClicked()
+{
+    User user = authentification->getUser();
+
+    profileUI = new ProfilUI(&user ,this);
+    profileUI->show();
+
+}
+
 
 
 void FlowController::exec()

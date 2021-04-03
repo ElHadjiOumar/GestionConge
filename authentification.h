@@ -22,6 +22,7 @@ public:
     User getUser() {return user ;}
     void setUser (User obj) { user = obj; }
 
+
     ~Authentification();
 
 private:

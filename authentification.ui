@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>399</width>
+    <height>488</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -60,8 +60,8 @@ QLineEdit{
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>100</y>
+      <x>10</x>
+      <y>10</y>
       <width>381</width>
       <height>431</height>
      </rect>
@@ -195,7 +195,7 @@ QFrame{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>399</width>
      <height>22</height>
     </rect>
    </property>

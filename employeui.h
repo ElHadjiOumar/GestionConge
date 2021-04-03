@@ -33,12 +33,7 @@ public:
 
 private slots:
     void onTableClicked(const QModelIndex &index);
-    //void onRadioCreateClicked();
-    //void onRadioUpdateClicked();
-    //void onSubmitClicked();
-    //void onDeleteClicked();
     void onClearClicked();
-    //void onSearchClicked();
 
 private:
     Ui::EmployeUI *ui;

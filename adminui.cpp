@@ -56,14 +56,15 @@ bool AdminUI::closeConfirmation()
 bool AdminUI::getUserInformations(User *user)
 {
     QString matricule = ui->lineEditMatricule->text();
+    QString nbre_conge = ui->lineEditConge->text();
     QString nom = ui->lineEditNom->text();
     QString prenom = ui->lineEditPrenom->text();
-    QString date_naiss = ui->lineEditDate->text();
+    QDate date_naiss = ui->dateEdit->date();
     QString addresse = ui->lineEditAdresse->text();
     QString login = ui->lineEditLogin->text();
     QString password = ui->lineEditPassword->text();
 
-    if (nom.isEmpty() || prenom.isEmpty() || date_naiss.isEmpty() || addresse.isEmpty()  || login.isEmpty() || password.isEmpty())
+    if ( nbre_conge.isEmpty()||matricule.isEmpty()||nom.isEmpty() || prenom.isEmpty() || date_naiss.isNull() || addresse.isEmpty()  || login.isEmpty() || password.isEmpty())
     {
         QMessageBox::critical(this, "Error", "Veuillez remplir tous les champs!");
         return false;
@@ -85,6 +86,7 @@ bool AdminUI::getUserInformations(User *user)
     user->setPrenom(prenom);
     user->setDate_naiss(date_naiss);
     user->setAdresse(addresse);
+    user->setNbre_conge(nbre_conge);
     user->setMatricule(matricule);
     user->setMail(login);
     user->setPassword(password);
@@ -194,12 +196,13 @@ void AdminUI::populate(uint row)
 
     ui->lineEditIdentifiant->setText(field.value().toString());
     ui->lineEditMatricule->setText(record.field(1).value().toString());
-    ui->lineEditNom->setText(record.field(2).value().toString());
-    ui->lineEditPrenom->setText(record.field(3).value().toString());
-    ui->lineEditDate->setText(record.field(4).value().toString());
-    ui->lineEditAdresse->setText(record.field(5).value().toString());
-    ui->lineEditLogin->setText(record.field(6).value().toString());
-    ui->lineEditPassword->clear();
+    ui->lineEditConge->setText(record.field(2).value().toString());
+    ui->lineEditNom->setText(record.field(3).value().toString());
+    ui->lineEditPrenom->setText(record.field(4).value().toString());
+    ui->dateEdit->setDate(record.field(5).value().toDate());
+    ui->lineEditAdresse->setText(record.field(6).value().toString());
+    ui->lineEditLogin->setText(record.field(7).value().toString());
+    ui->lineEditPassword->setText(record.field(8).value().toString());
 }
 
 void AdminUI::onTableClicked(const QModelIndex &index)
@@ -247,8 +250,9 @@ void AdminUI::clear()
     ui->lineEditIdentifiant->clear();
     ui->lineEditNom->clear();
     ui->lineEditPrenom->clear();
-    ui->lineEditDate->clear();
+    ui->dateEdit->clear();
     ui->lineEditAdresse->clear();
+    ui->lineEditConge->clear();
     ui->lineEditMatricule->clear();
     ui->lineEditLogin->clear();
     ui->lineEditPassword->clear();

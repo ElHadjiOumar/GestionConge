@@ -17,7 +17,7 @@ ManagerUI::ManagerUI(QObject *controller) : ui(new Ui::ManagerUI)
     ui->setupUi(this);
     this->setUpTableView();
 
-
+    connect(ui->pushButtonProfil, SIGNAL(clicked()), controller, SLOT(onProfilClicked()));
     connect(ui->pushButtonSubmit, SIGNAL(clicked()), this, SLOT(onSubmitClicked()));
     connect(ui->tableViewUsers, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClicked(const QModelIndex &)));
 
@@ -40,8 +40,8 @@ bool ManagerUI::getInformations(Conge *conge)
 {
     QString employe_id =ui->lineEditEmploye->text();
     QString nbre_conge = ui->lineEditConge->text();
-    QString date_debut = ui->lineEditDebut->text();
-    QString date_fin = ui->lineEditFin->text();
+    QDate date_debut = ui->dateEditDebut->date();
+    QDate date_fin = ui->dateEditFin->date();
     QString motif = ui->plainTextEdit->toPlainText();
 
     QString identifiant = ui->lineEditIdentifiant->text();
@@ -113,8 +113,8 @@ void ManagerUI::populate(uint row)
     ui->lineEditIdentifiant->setText(field.value().toString());
     ui->lineEditEmploye->setText(record.field(1).value().toString());
     ui->lineEditConge->setText(record.field(2).value().toString());
-    ui->lineEditDebut->setText(record.field(3).value().toString());
-    ui->lineEditFin->setText(record.field(4).value().toString());
+    ui->dateEditDebut->setDate(record.field(3).value().toDate());
+    ui->dateEditFin->setDate(record.field(4).value().toDate());
     ui->plainTextEdit->setPlainText(record.field(6).value().toString());
 }
 
@@ -125,11 +125,6 @@ void ManagerUI::onTableClicked(const QModelIndex &index)
         populate(index.row());
     }
 }
-
-
-
-
-
 
 ManagerUI::~ManagerUI()
 {

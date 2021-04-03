@@ -15,9 +15,10 @@ void UserModel::create(User user)
     dbAccess->open();
 
     QSqlQuery query(dbAccess->database());
-    query.prepare("INSERT INTO t_users (matricule,nom, prenom, date_naiss,addresse,mail,password, type) "
-                    "VALUES (:matricule, :nom, :prenom, :date_naiss,:addresse,:mail,:password,:type)");
+    query.prepare("INSERT INTO t_users (matricule,nbre_conge,nom, prenom, date_naiss,addresse,mail,password, type) "
+                    "VALUES (:matricule,:nbre_conge, :nom, :prenom, :date_naiss,:addresse,:mail,:password,:type)");
     query.bindValue(":matricule", user.getMatricule());
+    query.bindValue(":nbre_conge", user.getNbre_conge());
     query.bindValue(":nom", user.getNom());
     query.bindValue(":prenom", user.getPrenom());
     query.bindValue(":date_naiss", user.getDate_naiss());
@@ -30,7 +31,7 @@ void UserModel::create(User user)
 
     readAll();
 
-    qDebug () << "User" << user.getNom() <<" matricule : "<< user.getMatricule()<< "created successfully!";
+    qDebug () << "User" << user.getNom() <<" nbre_conge : "<< user.getNbre_conge()<< "created successfully!";
     dbAccess->close();
 }
 
@@ -39,17 +40,18 @@ void UserModel::readAll()
     dbAccess->open();
 
     QSqlDatabase database = dbAccess->database();
-    this->setQuery("SELECT id,matricule, nom, prenom, date_naiss,addresse,mail,password,type FROM t_users", database);
+    this->setQuery("SELECT id,matricule,nbre_conge, nom, prenom, date_naiss,addresse,mail,password,type FROM t_users", database);
 
     this->setHeaderData(0, Qt::Horizontal, tr("Id"));
     this->setHeaderData(1, Qt::Horizontal, tr("Matricule"));
-    this->setHeaderData(2, Qt::Horizontal, tr("Nom"));
-    this->setHeaderData(3, Qt::Horizontal, tr("Prenom"));
-    this->setHeaderData(4, Qt::Horizontal, tr("Date de Naissance"));
-    this->setHeaderData(5, Qt::Horizontal, tr("Addresse"));
-    this->setHeaderData(6, Qt::Horizontal, tr("Mail"));
-    this->setHeaderData(7, Qt::Horizontal, tr("Password"));
-    this->setHeaderData(8, Qt::Horizontal, tr("Type"));
+    this->setHeaderData(2, Qt::Horizontal, tr("Nbre_conge"));
+    this->setHeaderData(3, Qt::Horizontal, tr("Nom"));
+    this->setHeaderData(4, Qt::Horizontal, tr("Prenom"));
+    this->setHeaderData(5, Qt::Horizontal, tr("Date de Naissance"));
+    this->setHeaderData(6, Qt::Horizontal, tr("Addresse"));
+    this->setHeaderData(7, Qt::Horizontal, tr("Mail"));
+    this->setHeaderData(8, Qt::Horizontal, tr("Password"));
+    this->setHeaderData(9, Qt::Horizontal, tr("Type"));
 
     qDebug () << "Users displayed successfully!";
     dbAccess->close();
@@ -60,9 +62,10 @@ void UserModel::update(User user)
     dbAccess->open();
 
     QSqlQuery query(dbAccess->database());
-    query.prepare("UPDATE t_users SET matricule=:matricule,nom=:nom, prenom=:prenom, date_naiss=:date_naiss, addresse=:addresse, mail=:mail,password=:password,type=:type WHERE id=:id");
-    query.bindValue(":nom", user.getNom());
+    query.prepare("UPDATE t_users SET matricule=:matricule,nbre_conge=:nbre_conge,nom=:nom, prenom=:prenom, date_naiss=:date_naiss, addresse=:addresse, mail=:mail,password=:password,type=:type WHERE id=:id");
     query.bindValue(":matricule", user.getMatricule());
+    query.bindValue(":nom", user.getNom());
+    query.bindValue(":nbre_conge", user.getNbre_conge());
     query.bindValue(":nom", user.getNom());
     query.bindValue(":prenom", user.getPrenom());
     query.bindValue(":date_naiss", user.getDate_naiss());
@@ -99,7 +102,7 @@ bool UserModel::readBy(QString nom)
     dbAccess->open();
 
     QSqlQuery query(dbAccess->database());
-    query.prepare("SELECT id AS Id,matricule AS Matricule nom AS Nom, prenom AS Prenom, date_naiss AS Date_naiss,addresse AS Addresse,mail AS Mail,password AS Password, type AS Type FROM t_users WHERE nom=:nom");
+    query.prepare("SELECT id AS Id,matricule AS Matricule,nbre_conge AS Nbre_conge nom AS Nom, prenom AS Prenom, date_naiss AS Date_naiss,addresse AS Addresse,mail AS Mail,password AS Password, type AS Type FROM t_users WHERE nom=:nom");
     query.bindValue(":nom", nom);
     query.exec();
 
@@ -122,7 +125,7 @@ bool UserModel::readBy(QString mail, QString password, User *user)
     dbAccess->open();
 
     QSqlQuery query(dbAccess->database());
-    query.prepare("SELECT id,matricule, nom, prenom, date_naiss,addresse,mail,password,type FROM t_users WHERE mail=:mail AND password=:password");
+    query.prepare("SELECT id,matricule,nbre_conge, nom, prenom, date_naiss,addresse,mail,password,type FROM t_users WHERE mail=:mail AND password=:password");
     query.bindValue(":mail", mail);
     query.bindValue(":password", password);
     query.exec();
@@ -133,8 +136,15 @@ bool UserModel::readBy(QString mail, QString password, User *user)
     }
 
     QSqlRecord record = query.record();
+    user->setId(query.value(record.indexOf("id")).toUInt());
     user->setNom(query.value(record.indexOf("nom")).toString());
     user->setPrenom(query.value(record.indexOf("prenom")).toString());
+    user->setNbre_conge(query.value(record.indexOf("nbre_conge")).toString());
+    user->setMatricule(query.value(record.indexOf("matricule")).toString());
+    user->setDate_naiss(query.value(record.indexOf("date_naiss")).toDate());
+    user->setAdresse(query.value(record.indexOf("addresse")).toString());
+    user->setMail(query.value(record.indexOf("mail")).toString());
+    user->setPassword(query.value(record.indexOf("password")).toString());
     user->setType(query.value(record.indexOf("type")).toString());
 
     qDebug() << "User with name" << user->getNom() << user->getPrenom() << "found.";
@@ -148,17 +158,18 @@ void UserModel::clear()
     dbAccess->open();
 
     QSqlDatabase database = dbAccess->database();
-    this->setQuery("SELECT id,matricule, nom, prenom, date_naiss,addresse,mail,password,type  FROM t_users WHERE id=-1", database);
+    this->setQuery("SELECT id,matricule,nbre_conge, nom, prenom, date_naiss,addresse,mail,password,type  FROM t_users WHERE id=-1", database);
 
     this->setHeaderData(0, Qt::Horizontal, tr("Id"));
     this->setHeaderData(1, Qt::Horizontal, tr("Matricule"));
-    this->setHeaderData(2, Qt::Horizontal, tr("Nom"));
-    this->setHeaderData(3, Qt::Horizontal, tr("Prenom"));
-    this->setHeaderData(4, Qt::Horizontal, tr("Date de Naissance"));
-    this->setHeaderData(5, Qt::Horizontal, tr("Addresse"));
-    this->setHeaderData(6, Qt::Horizontal, tr("Mail"));
-    this->setHeaderData(7, Qt::Horizontal, tr("Password"));
-    this->setHeaderData(8, Qt::Horizontal, tr("Type"));
+    this->setHeaderData(2, Qt::Horizontal, tr("Nbre_conge"));
+    this->setHeaderData(3, Qt::Horizontal, tr("Nom"));
+    this->setHeaderData(4, Qt::Horizontal, tr("Prenom"));
+    this->setHeaderData(5, Qt::Horizontal, tr("Date de Naissance"));
+    this->setHeaderData(6, Qt::Horizontal, tr("Addresse"));
+    this->setHeaderData(7, Qt::Horizontal, tr("Mail"));
+    this->setHeaderData(8, Qt::Horizontal, tr("Password"));
+    this->setHeaderData(9, Qt::Horizontal, tr("Type"));
 
 
     dbAccess->close();

@@ -28,6 +28,7 @@ SOURCES += \
     flowcontroller.cpp \
     main.cpp \
     managerui.cpp \
+    profilui.cpp \
     user.cpp \
     usermodel.cpp
 
@@ -41,6 +42,7 @@ HEADERS += \
     employeui.h \
     flowcontroller.h \
     managerui.h \
+    profilui.h \
     user.h \
     usermodel.h
 
@@ -49,7 +51,8 @@ FORMS += \
     authentification.ui \
     drhui.ui \
     employeui.ui \
-    managerui.ui
+    managerui.ui \
+    profilui.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

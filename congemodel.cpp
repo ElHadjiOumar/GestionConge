@@ -18,7 +18,7 @@ void CongeModel::create(User user,Conge conge)
     query.prepare("INSERT INTO t_conge (employe_id, nbre_conge, date_debut,date_fin,status,motif) "
                     "VALUES (:employe_id, :nbre_conge, :date_debut, :date_fin, :status ,:motif)");
     query.bindValue(":nbre_conge", conge.getNbre_conge());
-    query.bindValue(":employe_id", user.getNom());
+    query.bindValue(":employe_id", user.getMatricule());
     query.bindValue(":date_debut", conge.getDate_debut());
     query.bindValue(":date_fin", conge.getDate_fin());
     query.bindValue(":status", conge.getStatus());
@@ -56,11 +56,11 @@ void CongeModel::readConge(User *user)
     dbAccess->open();
 
      QSqlDatabase database = dbAccess->database();
-    this->setQuery("SELECT id,employe_id, nbre_conge, date_debut,date_fin,status,motif FROM t_conge WHERE employe_id=\""+user->getNom()+"\"", database);
+    this->setQuery("SELECT id,employe_id, nbre_conge, date_debut,date_fin,status,motif FROM t_conge WHERE employe_id=\""+user->getMatricule()+"\"", database);
 
 
      this->setHeaderData(0, Qt::Horizontal, tr("Id"));
-     this->setHeaderData(1, Qt::Horizontal, tr("Nom"));
+     this->setHeaderData(1, Qt::Horizontal, tr("Employe_id"));
      this->setHeaderData(2, Qt::Horizontal, tr("Nbre_conge"));
      this->setHeaderData(3, Qt::Horizontal, tr("Date de Debut"));
      this->setHeaderData(4, Qt::Horizontal, tr("Date de Fin"));
