@@ -20,7 +20,6 @@ EmployeUI::EmployeUI(User *user ,QObject *controller) : ui(new Ui::EmployeUI)
     modelLu->readCongeLU(user->getMatricule());
 
 
-
     //connect(ui->pushButtonCancel, SIGNAL(clicked()), controller, SLOT(onUIAdminCancel()));
 
     connect(ui->pushButtonProfil, SIGNAL(clicked()), controller, SLOT(onProfilClicked()));
@@ -38,29 +37,10 @@ EmployeUI::EmployeUI(User *user ,QObject *controller) : ui(new Ui::EmployeUI)
                             " Vous avez : " + demandeNonlu +" demande(s) de congé(s) non lus"
                             " et " +demandeLu+" nouvelle(s) reponse(s) venant du manager ");
 
-    QDate aujourdhui;
-    aujourdhui.currentDate();
 
-    qDebug() << "La date d'aujourdhui est le :" << aujourdhui;
-
-    QDate moisEnregistrement = user->getDate_inscription();
-    int ecart ,conge,solde;
-
-    if(aujourdhui.month() > moisEnregistrement.month()){
-        ecart = aujourdhui.month() - moisEnregistrement.month();
-
-        conge = user->getNbre_conge();
-        solde = conge + ecart ;
-        user->setNbre_conge(solde);
-        user->setDate_inscription(aujourdhui);
-
-        modelNonlu->updateUser(*user);
-    }
 
 
     qDebug() << "EmployeUI Object is created. l'id est " << user->getMatricule();
-
-
 
 }
 
