@@ -28,7 +28,9 @@ public:
     void removeLU(uint id);
     void removeMAX();
     QString countNonlu();
+    QString countNonluConge(User *user);
     QString countLu();
+    QString countLuConge(User *user);
     void readAll();
     void readAllLu();
     void readCongeNonLU(User *user);

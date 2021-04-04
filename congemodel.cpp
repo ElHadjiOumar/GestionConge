@@ -202,6 +202,24 @@ QString CongeModel::countNonlu(){
     return compter;
 }
 
+QString CongeModel::countNonluConge(User *user){
+    dbAccess->open();
+
+    QSqlQuery query(dbAccess->database());
+    QString compter ;
+
+    query.prepare("SELECT COUNT(id) FROM t_conge_nonlu WHERE employe_id=\""+user->getMatricule()+"\"");
+    query.exec();
+    query.first();
+    compter = query.value(0).toString();
+
+    qDebug () << "compter est : " << compter;
+
+
+    dbAccess->close();
+    return compter;
+}
+
 QString CongeModel::countLu(){
     dbAccess->open();
 
@@ -209,6 +227,24 @@ QString CongeModel::countLu(){
     QString compter ;
 
     query.prepare("SELECT COUNT(id) FROM t_conge_lu");
+    query.exec();
+    query.first();
+    compter = query.value(0).toString();
+
+    qDebug () << "compter est : " << compter;
+
+
+    dbAccess->close();
+    return compter;
+}
+
+QString CongeModel::countLuConge(User *user){
+    dbAccess->open();
+
+    QSqlQuery query(dbAccess->database());
+    QString compter ;
+
+    query.prepare("SELECT COUNT(id) FROM t_conge_lu WHERE employe_id=\""+user->getMatricule()+"\"");
     query.exec();
     query.first();
     compter = query.value(0).toString();

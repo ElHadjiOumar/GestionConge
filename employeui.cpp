@@ -14,10 +14,10 @@ EmployeUI::EmployeUI(User *user ,QObject *controller) : ui(new Ui::EmployeUI)
 {
     ui->setupUi(this);
     this->setUpTableViewNonlu();
-    modelLu->readCongeNonLU(user);
+    modelNonlu->readCongeNonLU(user);
 
     this->setUpTableViewLu();
-    modelNonlu->readCongeLU(user);
+    modelLu->readCongeLU(user);
 
 
     //connect(ui->pushButtonCancel, SIGNAL(clicked()), controller, SLOT(onUIAdminCancel()));
@@ -27,8 +27,13 @@ EmployeUI::EmployeUI(User *user ,QObject *controller) : ui(new Ui::EmployeUI)
     connect(ui->tableViewUsers, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClickedNonlu(const QModelIndex &)));
     connect(ui->tableViewUsers_2, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClickedLu(const QModelIndex &)));
 
+    QString demandeNonlu = modelNonlu->countNonluConge(user);
+    QString demandeLu = modelLu->countLuConge(user);
 
-
+    QMessageBox::information(this, "Messages Non lu",
+                             "Bienvenue  "+user->getPrenom()+" "+ user->getNom()+""
+                            " Vous avez : " + demandeNonlu +" demande(s) de congé(s) non lus"
+                            " et " +demandeLu+" nouvelle(s) reponse(s) venant du manager ");
 
     qDebug() << "EmployeUI Object is created. l'id est " << user->getMatricule();
 }
