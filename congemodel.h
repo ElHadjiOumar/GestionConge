@@ -27,10 +27,10 @@ public:
     void removeNonLU(uint id);
     void removeLU(uint id);
     void removeMAX();
-    int count();
-    //bool readBy(QString employe_id);
-    //bool readBy(QString mail, QString password, User *user);
+    QString countNonlu();
+    QString countLu();
     void readAll();
+    void readAllLu();
     void readCongeNonLU(User *user);
     void readCongeLU(User *user);
 };

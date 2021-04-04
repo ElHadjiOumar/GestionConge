@@ -3,6 +3,9 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QSqlResult>
+#include <QMessageBox>
+
+
 
 CongeModel::CongeModel(DBAccess *dbAccess)
 {
@@ -70,7 +73,26 @@ void CongeModel::readAll()
     this->setHeaderData(5, Qt::Horizontal, tr("Status"));
 
 
-    qDebug () << "Conges displayed successfully!";
+    qDebug () << "Conges non lu displayed successfully!";
+    dbAccess->close();
+}
+
+void CongeModel::readAllLu()
+{
+    dbAccess->open();
+
+    QSqlDatabase database = dbAccess->database();
+    this->setQuery("SELECT id, employe_id, nbre_conge, date_debut,date_fin,status,motif FROM t_conge_lu ", database);
+
+    this->setHeaderData(0, Qt::Horizontal, tr("Id"));
+    this->setHeaderData(1, Qt::Horizontal, tr("Employe_id"));
+    this->setHeaderData(2, Qt::Horizontal, tr("Nbre_conge"));
+    this->setHeaderData(3, Qt::Horizontal, tr("Date de Debut"));
+    this->setHeaderData(4, Qt::Horizontal, tr("Date de Fin"));
+    this->setHeaderData(5, Qt::Horizontal, tr("Status"));
+
+
+    qDebug () << "Conges lu displayed successfully!";
     dbAccess->close();
 }
 
@@ -88,6 +110,26 @@ void CongeModel::readCongeNonLU(User *user)
      this->setHeaderData(3, Qt::Horizontal, tr("Date de Debut"));
      this->setHeaderData(4, Qt::Horizontal, tr("Date de Fin"));
      this->setHeaderData(5, Qt::Horizontal, tr("Status"));
+     this->setHeaderData(6, Qt::Horizontal, tr("Motif"));
+
+    qDebug () << "Conges displayed successfully!";
+    dbAccess->close();
+}
+void CongeModel::readCongeLU(User *user)
+{
+    dbAccess->open();
+
+     QSqlDatabase database = dbAccess->database();
+    this->setQuery("SELECT id,employe_id, nbre_conge, date_debut,date_fin,status,motif FROM t_conge_lu WHERE employe_id=\""+user->getMatricule()+"\"", database);
+
+
+     this->setHeaderData(0, Qt::Horizontal, tr("Id"));
+     this->setHeaderData(1, Qt::Horizontal, tr("Employe_id"));
+     this->setHeaderData(2, Qt::Horizontal, tr("Nbre_conge"));
+     this->setHeaderData(3, Qt::Horizontal, tr("Date de Debut"));
+     this->setHeaderData(4, Qt::Horizontal, tr("Date de Fin"));
+     this->setHeaderData(5, Qt::Horizontal, tr("Status"));
+     this->setHeaderData(6, Qt::Horizontal, tr("Motif"));
 
 
     qDebug () << "Conges displayed successfully!";
@@ -124,8 +166,7 @@ void CongeModel::removeMAX()
     dbAccess->open();
 
     QSqlQuery query(dbAccess->database());
-    //query.prepare("DELETE FROM t_conge_lu WHERE id=(SELECT max(id) FROM t_conge_lu)");
-       query.prepare("DELETE FROM t_conge_lu WHERE ID IN (SELECT id FROM t_conge_lu ORDER BY ID DESC LIMIT (SELECT COUNT(id)-1 FROM t_conge_nonlu))");
+        query.prepare("DELETE FROM t_conge_lu WHERE ID IN (SELECT id FROM t_conge_lu ORDER BY ID DESC LIMIT (SELECT COUNT(id)-1 FROM t_conge_nonlu))");
         query.exec();
 
 
@@ -143,22 +184,41 @@ void CongeModel::removeNonLU(uint id)
 
     dbAccess->close();
 }
-/*int CongeModel::count(){
+QString CongeModel::countNonlu(){
     dbAccess->open();
 
     QSqlQuery query(dbAccess->database());
-    int compter ;
+    QString compter ;
+
+    query.prepare("SELECT COUNT(id) FROM t_conge_nonlu");
+    query.exec();
+    query.first();
+    compter = query.value(0).toString();
+
+    qDebug () << "compter est : " << compter;
+
+
+    dbAccess->close();
+    return compter;
+}
+
+QString CongeModel::countLu(){
+    dbAccess->open();
+
+    QSqlQuery query(dbAccess->database());
+    QString compter ;
 
     query.prepare("SELECT COUNT(id) FROM t_conge_lu");
     query.exec();
     query.first();
-    compter = query.value(0).toUInt();
+    compter = query.value(0).toString();
 
     qDebug () << "compter est : " << compter;
 
-    return compter;
+
     dbAccess->close();
-}*/
+    return compter;
+}
 
 void CongeModel::clear()
 {

@@ -22,6 +22,10 @@ ManagerUI::ManagerUI(QObject *controller) : ui(new Ui::ManagerUI)
     connect(ui->tableViewUsers, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClicked(const QModelIndex &)));
 
     model->readAll();
+    QString demande = model->countNonlu();
+
+    QMessageBox::information(this, "Messages Non lu",
+                             "Bienvenue  Manager , Vous avez : " + demande +" demandes de congé non lus");
     qDebug() << "ManagerUI Object is created ";
 }
 

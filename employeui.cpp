@@ -13,31 +13,44 @@ EmployeUI::EmployeUI(QWidget *parent) : QMainWindow(parent),ui(new Ui::EmployeUI
 EmployeUI::EmployeUI(User *user ,QObject *controller) : ui(new Ui::EmployeUI)
 {
     ui->setupUi(this);
-    this->setUpTableView();
+    this->setUpTableViewNonlu();
+    modelLu->readCongeNonLU(user);
+
+    this->setUpTableViewLu();
+    modelNonlu->readCongeLU(user);
 
 
     //connect(ui->pushButtonCancel, SIGNAL(clicked()), controller, SLOT(onUIAdminCancel()));
     connect(ui->pushButtonProfil, SIGNAL(clicked()), controller, SLOT(onProfilClicked()));
     connect(ui->pushButtonSubmit, SIGNAL(clicked()), controller, SLOT(onSubmitEmployeClicked()));
     connect(ui->pushButtonClear, SIGNAL(clicked()), this, SLOT(onClearClicked()));
-    connect(ui->tableViewUsers, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClicked(const QModelIndex &)));
+    connect(ui->tableViewUsers, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClickedNonlu(const QModelIndex &)));
+    connect(ui->tableViewUsers_2, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClickedLu(const QModelIndex &)));
 
-    //ui->lineEditId->setText(user.getMatricule());
-    //user.setId(employe_id.toUInt());
 
-    model->readCongeNonLU(user);
+
+
     qDebug() << "EmployeUI Object is created. l'id est " << user->getMatricule();
 }
 
-void EmployeUI::setUpTableView()
+void EmployeUI::setUpTableViewNonlu()
 {
-    model = new CongeModel(DBAccess::getInstance());
+    modelNonlu = new CongeModel(DBAccess::getInstance());
 
-    ui->tableViewUsers->setModel(model);
-    //ui->tableViewUsers->hideColumn(4); // don't show the Password
+    ui->tableViewUsers->setModel(modelNonlu);
     ui->tableViewUsers->show();
 
-    selectFirstRow();
+    selectFirstRowNonlu();
+}
+
+void EmployeUI::setUpTableViewLu()
+{
+    modelLu = new CongeModel(DBAccess::getInstance());
+
+    ui->tableViewUsers_2->setModel(modelLu);
+    ui->tableViewUsers_2->show();
+
+    selectFirstRowLu();
 }
 
 bool EmployeUI::closeConfirmation()
@@ -55,7 +68,6 @@ bool EmployeUI::getInformations(Conge *conge)
 {
     QDate date_debut = ui->dateEditDebut->date();
     QDate date_fin = ui->dateEditFin->date();
-    QString status = ui->lineEditStatus->text();
     QString motif = ui->plainTextEdit->toPlainText();
 
     if ( date_debut.isNull() || date_fin.isNull() || motif.isEmpty()  )
@@ -80,16 +92,28 @@ void EmployeUI::createConge(User *user)
     Conge conge;
     if (true == getInformations(&conge))
     {
-        model->create(*user, conge);
+        modelNonlu->create(*user, conge);
         clear();
     }
 }
 
-void EmployeUI::selectFirstRow()
+void EmployeUI::selectFirstRowNonlu()
 {
-    if (model->rowCount() > 0)
+    if (modelNonlu->rowCount() > 0)
     {
-        populate(0);
+        populateNonlu(0);
+    }
+    else
+    {
+        clear();
+    }
+}
+
+void EmployeUI::selectFirstRowLu()
+{
+    if (modelLu->rowCount() > 0)
+    {
+        populateNonlu(0);
     }
     else
     {
@@ -104,22 +128,40 @@ void EmployeUI::validerCommande(User *user)
 }
 
 
-void EmployeUI::populate(uint row)
+void EmployeUI::populateNonlu(uint row)
 {
-    QSqlRecord record = model->record(row);
+    QSqlRecord record = modelNonlu->record(row);
     QSqlField field = record.field(0);
 
     ui->dateEditDebut->setDate(record.field(3).value().toDate());
     ui->dateEditFin->setDate(record.field(4).value().toDate());
-    ui->lineEditStatus->setText(record.field(5).value().toString());
     ui->plainTextEdit->setPlainText(record.field(6).value().toString());
 }
 
-void EmployeUI::onTableClicked(const QModelIndex &index)
+void EmployeUI::populateLu(uint row)
+{
+    QSqlRecord record = modelLu->record(row);
+    QSqlField field = record.field(0);
+
+    ui->dateEditDebutLu->setDate(record.field(3).value().toDate());
+    ui->dateEditFinLu->setDate(record.field(4).value().toDate());
+    ui->lineEditStatusLu->setText(record.field(5).value().toString());
+    ui->plainTextEditLu->setPlainText(record.field(6).value().toString());
+}
+
+void EmployeUI::onTableClickedNonlu(const QModelIndex &index)
 {
     if (index.isValid())
     {
-        populate(index.row());
+        populateNonlu(index.row());
+    }
+}
+
+void EmployeUI::onTableClickedLu(const QModelIndex &index)
+{
+    if (index.isValid())
+    {
+        populateLu(index.row());
     }
 }
 
@@ -134,7 +176,6 @@ void EmployeUI::clear()
 
     ui->dateEditDebut->clear();
     ui->dateEditFin->clear();
-    ui->lineEditStatus->clear();
     ui->plainTextEdit->clear();
 
 }
@@ -143,7 +184,9 @@ void EmployeUI::clear()
 EmployeUI::~EmployeUI()
 {
     delete ui;
+    delete modelLu;
+    delete modelNonlu;
 
-    qDebug() << "AdminUI Object has been deleted!";
+    qDebug() << "EmployeUI Object has been deleted!";
 }
 

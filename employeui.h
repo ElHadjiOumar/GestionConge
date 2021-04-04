@@ -32,24 +32,29 @@ public:
     ~EmployeUI();
 
 private slots:
-    void onTableClicked(const QModelIndex &index);
+    void onTableClickedNonlu(const QModelIndex &index);
+    void onTableClickedLu(const QModelIndex &index);
     void onClearClicked();
 
 private:
     Ui::EmployeUI *ui;
-    CongeModel *model;
+    CongeModel *modelLu;
+    CongeModel *modelNonlu;
     Authentification *authentification;
 
 
 
     void setInformation();
     bool getInformations(Conge *conge);
-    void setUpTableView();
-    void populate(uint row);
+    void setUpTableViewLu();
+    void setUpTableViewNonlu();
+    void populateNonlu(uint row);
+    void populateLu(uint row);
     void createConge(User *user);
     void updateConge();
     void clear();
-    void selectFirstRow();
+    void selectFirstRowLu();
+    void selectFirstRowNonlu();
 };
 
 #endif // EMPLOYEUI_H

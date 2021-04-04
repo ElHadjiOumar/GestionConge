@@ -28,6 +28,8 @@ AdminUI::AdminUI(QObject *controller) :
     connect(ui->radioButtonUpdate, SIGNAL(clicked()), this, SLOT(onRadioUpdateClicked()));
     connect(ui->tableViewUsers, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClicked(const QModelIndex &)));
 
+
+
     qDebug() << "AdminUI Object is created.";
 }
 
