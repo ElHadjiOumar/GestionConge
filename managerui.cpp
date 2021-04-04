@@ -88,7 +88,7 @@ void ManagerUI::updateConge()
     Conge conge;
     if (true == getInformations(&conge))
     {
-        model->update(conge);
+        model->updateLU(conge);
     }
 }
 

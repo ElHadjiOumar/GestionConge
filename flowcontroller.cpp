@@ -24,7 +24,6 @@ void FlowController::onAuthentificationSubmit()
          else if(userType.compare("employe")==0){
 
             employeUI = new EmployeUI(&user ,this);
-
             employeUI->show();
         }else if(userType.compare("manager")==0){
 

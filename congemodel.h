@@ -21,12 +21,18 @@ public:
 
     // CRUD methods
     void create(User user,Conge conge);
-    void update(Conge conge);
-    //void remove(uint id);
+    void updateNonLU(Conge conge);
+    void updateLU(Conge conge);
+    void copie(Conge conge);
+    void removeNonLU(uint id);
+    void removeLU(uint id);
+    void removeMAX();
+    int count();
     //bool readBy(QString employe_id);
     //bool readBy(QString mail, QString password, User *user);
     void readAll();
-    void readConge(User *user);
+    void readCongeNonLU(User *user);
+    void readCongeLU(User *user);
 };
 
 #endif // CONGEMODEL_H

@@ -25,7 +25,7 @@ EmployeUI::EmployeUI(User *user ,QObject *controller) : ui(new Ui::EmployeUI)
     //ui->lineEditId->setText(user.getMatricule());
     //user.setId(employe_id.toUInt());
 
-    model->readConge(user);
+    model->readCongeNonLU(user);
     qDebug() << "EmployeUI Object is created. l'id est " << user->getMatricule();
 }
 
