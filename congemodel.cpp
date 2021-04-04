@@ -112,7 +112,7 @@ void CongeModel::updateLU(Conge conge)
 
     copie(conge);
     removeMAX();
-    //removeNonLU(conge.getId());
+    removeNonLU(conge.getId());
     readAll();
 
     qDebug () << "La demande de Conge de :" << conge.getEmploye_id() << " envoye avec succes !" ;
