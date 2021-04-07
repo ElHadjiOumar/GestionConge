@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 183, 124);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
@@ -26,15 +29,41 @@
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="2">
       <widget class="QPushButton" name="pushButtonCancel">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="text">
         <string>Cancel</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/images.qrc">
+         <normaloff>:/download (9).png</normaloff>:/download (9).png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
       <widget class="QPushButton" name="pushButtonSubmit">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="text">
         <string>Submit</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/images.qrc">
+         <normaloff>:/how-to-create-png-images.png</normaloff>:/how-to-create-png-images.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -78,6 +107,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="lineEditIdentifiant">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -99,6 +131,9 @@
      </item>
      <item row="5" column="1">
       <widget class="QPlainTextEdit" name="plainTextEdit">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -113,6 +148,9 @@
      </item>
      <item row="6" column="1">
       <widget class="QComboBox" name="statusBox">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <item>
         <property name="text">
          <string/>
@@ -146,6 +184,9 @@
      </item>
      <item row="2" column="1">
       <widget class="QLineEdit" name="lineEditConge">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -160,6 +201,9 @@
      </item>
      <item row="1" column="1">
       <widget class="QLineEdit" name="lineEditEmploye">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -168,12 +212,15 @@
      <item row="1" column="0">
       <widget class="QLabel" name="labelId_2">
        <property name="text">
-        <string>Nom Employe</string>
+        <string>Employe ID</string>
        </property>
       </widget>
      </item>
      <item row="3" column="1">
       <widget class="QDateEdit" name="dateEditDebut">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -181,6 +228,9 @@
      </item>
      <item row="4" column="1">
       <widget class="QDateEdit" name="dateEditFin">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -196,6 +246,9 @@
       <width>461</width>
       <height>231</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="sizeAdjustPolicy">
      <enum>QAbstractScrollArea::AdjustIgnored</enum>
@@ -227,12 +280,25 @@
      <rect>
       <x>30</x>
       <y>360</y>
-      <width>121</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
     <property name="text">
      <string>Profile</string>
+    </property>
+    <property name="icon">
+     <iconset resource="../images/images.qrc">
+      <normaloff>:/download (6).png</normaloff>:/download (6).png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>20</width>
+      <height>20</height>
+     </size>
     </property>
    </widget>
   </widget>
@@ -242,12 +308,21 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuManager">
+    <property name="title">
+     <string>Manager</string>
+    </property>
+   </widget>
+   <addaction name="menuManager"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="../images/images.qrc"/>
+  <include location="../images/images.qrc"/>
+ </resources>
  <connections/>
 </ui>

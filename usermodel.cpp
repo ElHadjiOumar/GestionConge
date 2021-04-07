@@ -59,6 +59,25 @@ void UserModel::readAll()
     dbAccess->close();
 }
 
+void UserModel::readAllConge()
+{
+    dbAccess->open();
+
+    QSqlDatabase database = dbAccess->database();
+    this->setQuery("SELECT id, employe_id, nbre_conge, date_debut,date_fin,status,motif FROM t_conge_lu ", database);
+
+    this->setHeaderData(0, Qt::Horizontal, tr("Id"));
+    this->setHeaderData(1, Qt::Horizontal, tr("Employe_id"));
+    this->setHeaderData(2, Qt::Horizontal, tr("Nbre_conge"));
+    this->setHeaderData(3, Qt::Horizontal, tr("Date de Debut"));
+    this->setHeaderData(4, Qt::Horizontal, tr("Date de Fin"));
+    this->setHeaderData(5, Qt::Horizontal, tr("Status"));
+
+
+    qDebug () << "Conges non lu displayed successfully!";
+    dbAccess->close();
+}
+
 void UserModel::update(User user)
 {
     dbAccess->open();

@@ -7,11 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>434</height>
+    <height>448</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 183, 124);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -22,6 +25,9 @@
       <width>781</width>
       <height>401</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-color: rgb(255, 255, 255);</string>
     </property>
     <property name="currentIndex">
      <number>0</number>
@@ -58,31 +64,71 @@
      <widget class="QWidget" name="gridLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>364</x>
+        <x>318</x>
         <y>320</y>
-        <width>395</width>
-        <height>54</height>
+        <width>441</width>
+        <height>60</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="2">
         <widget class="QPushButton" name="pushButtonClear">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255);</string>
+         </property>
          <property name="text">
-          <string>Clear</string>
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../images/images.qrc">
+           <normaloff>:/images (6).png</normaloff>:/images (6).png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>100</width>
+           <height>20</height>
+          </size>
          </property>
         </widget>
        </item>
        <item row="0" column="3">
         <widget class="QPushButton" name="pushButtonCancel">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255);</string>
+         </property>
          <property name="text">
           <string>Cancel</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../images/images.qrc">
+           <normaloff>:/download (1).png</normaloff>:/download (1).png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
         <widget class="QPushButton" name="pushButtonSubmit">
+         <property name="styleSheet">
+          <string notr="true">
+background-color: rgb(255, 255, 255);</string>
+         </property>
          <property name="text">
           <string>Submit</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../images/images.qrc">
+           <normaloff>:/images.png</normaloff>:/images.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
          </property>
         </widget>
        </item>
@@ -106,7 +152,12 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QDateEdit" name="dateEditDebut"/>
+        <widget class="QDateEdit" name="dateEditDebut">
+         <property name="styleSheet">
+          <string notr="true">
+background-color: rgb(255, 255, 255);</string>
+         </property>
+        </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="labelDateFin">
@@ -116,7 +167,12 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QDateEdit" name="dateEditFin"/>
+        <widget class="QDateEdit" name="dateEditFin">
+         <property name="styleSheet">
+          <string notr="true">
+background-color: rgb(255, 255, 255);</string>
+         </property>
+        </widget>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label">
@@ -126,7 +182,11 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QPlainTextEdit" name="plainTextEdit"/>
+        <widget class="QPlainTextEdit" name="plainTextEdit">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255)</string>
+         </property>
+        </widget>
        </item>
        <item row="3" column="0">
         <widget class="QLabel" name="labelPassword">
@@ -140,14 +200,27 @@
      <widget class="QPushButton" name="pushButtonProfil">
       <property name="geometry">
        <rect>
-        <x>14</x>
-        <y>320</y>
-        <width>121</width>
+        <x>10</x>
+        <y>330</y>
+        <width>131</width>
         <height>31</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
       <property name="text">
        <string>Profile</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../images/images.qrc">
+        <normaloff>:/images (5).png</normaloff>:/images (5).png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>204</width>
+        <height>20</height>
+       </size>
       </property>
      </widget>
      <widget class="QTableView" name="tableViewUsers">
@@ -158,6 +231,9 @@
         <width>461</width>
         <height>231</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
       </property>
       <property name="sizeAdjustPolicy">
        <enum>QAbstractScrollArea::AdjustIgnored</enum>
@@ -252,6 +328,10 @@
        </item>
        <item row="3" column="1">
         <widget class="QDateEdit" name="dateEditDebutLu">
+         <property name="styleSheet">
+          <string notr="true">
+background-color: rgb(255, 255, 255);</string>
+         </property>
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -266,6 +346,10 @@
        </item>
        <item row="4" column="1">
         <widget class="QDateEdit" name="dateEditFinLu">
+         <property name="styleSheet">
+          <string notr="true">
+background-color: rgb(255, 255, 255);</string>
+         </property>
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -289,6 +373,10 @@
            <underline>false</underline>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">
+background-color: rgb(255, 255, 255);</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -306,6 +394,10 @@
        </item>
        <item row="6" column="1">
         <widget class="QPlainTextEdit" name="plainTextEditLu">
+         <property name="styleSheet">
+          <string notr="true">
+background-color: rgb(255, 255, 255);</string>
+         </property>
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -336,6 +428,10 @@
            <underline>false</underline>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">
+background-color: rgb(255, 255, 255);</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -361,6 +457,10 @@
            <bold>false</bold>
            <underline>false</underline>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">
+background-color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
           <string/>
@@ -388,6 +488,10 @@
            <underline>false</underline>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">
+background-color: rgb(255, 255, 255);</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -406,6 +510,10 @@
         <width>461</width>
         <height>231</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+background-color: rgb(255, 255, 255);</string>
       </property>
       <property name="sizeAdjustPolicy">
        <enum>QAbstractScrollArea::AdjustIgnored</enum>
@@ -454,14 +562,28 @@
      <widget class="QPushButton" name="pushButtonSupprimer">
       <property name="geometry">
        <rect>
-        <x>340</x>
+        <x>330</x>
         <y>300</y>
-        <width>121</width>
+        <width>131</width>
         <height>31</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">
+background-color: rgb(255, 255, 255);</string>
+      </property>
       <property name="text">
        <string>Supprimer</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../images/images.qrc">
+        <normaloff>:/delete.png</normaloff>:/delete.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
       </property>
      </widget>
     </widget>
@@ -473,12 +595,15 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="../images/images.qrc"/>
+  <include location="../images/images.qrc"/>
+ </resources>
  <connections/>
 </ui>

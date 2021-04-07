@@ -3,7 +3,7 @@
 #include "dbaccess.h"
 #include <QDebug>
 
-FlowController::FlowController() : authentification(nullptr) , adminUI (nullptr),employeUI(nullptr),managerUI(nullptr)
+FlowController::FlowController() : authentification(nullptr) , adminUI (nullptr),employeUI(nullptr),managerUI(nullptr),directeurRH(nullptr)
 {
      connection = DBAccess::getInstance()->database().connectionName();
 }
@@ -14,6 +14,7 @@ void FlowController::onAuthentificationSubmit()
     {
         authentification->close();
         QString userType = authentification->getUser().getType();
+        qDebug() << userType ;
 
         User user = authentification->getUser();
 
@@ -29,6 +30,9 @@ void FlowController::onAuthentificationSubmit()
 
             managerUI = new ManagerUI(this);
             managerUI->show();
+        }else if(userType.compare("drh")==0){
+            directeurRH = new DirecteurRH(this);
+            directeurRH->show();
         }
 
     }
@@ -50,7 +54,27 @@ void FlowController::onProfilClicked()
 
 }
 
-
+void FlowController::onUIAdminCancel()
+{
+    if (adminUI->closeConfirmation() == true)
+    {
+        adminUI->close();
+    }
+}
+void FlowController::onUIEmployeCancel()
+{
+    if (employeUI->closeConfirmation() == true)
+    {
+        employeUI->close();
+    }
+}
+void FlowController::onUIManagerCancel()
+{
+    if (managerUI->closeConfirmation() == true)
+    {
+        managerUI->close();
+    }
+}
 
 void FlowController::exec()
 {
@@ -69,6 +93,9 @@ FlowController::~FlowController()
     }else if (managerUI != nullptr)
     {
         delete managerUI;
+    }else if (directeurRH != nullptr)
+    {
+        delete directeurRH;
     }
 
     DBAccess::release();

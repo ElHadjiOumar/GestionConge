@@ -5,9 +5,9 @@
 #include "adminui.h"
 #include "employeui.h"
 #include "managerui.h"
-#include "drhui.h"
 #include "profilui.h"
 #include "authentification.h"
+#include "directeurrh.h"
 
 
 class FlowController : public QObject
@@ -20,7 +20,7 @@ private:
     AdminUI *adminUI;
     EmployeUI *employeUI;
     ManagerUI *managerUI;
-    DrhUI *drhUI;
+    DirecteurRH *directeurRH;
     ProfilUI *profileUI;
     QString connection;
 
@@ -28,6 +28,9 @@ private slots:
     void onAuthentificationSubmit();
     void onSubmitEmployeClicked();
     void onProfilClicked();
+    void onUIEmployeCancel();
+    void onUIAdminCancel();
+    void onUIManagerCancel();
 
 
 

@@ -1,6 +1,7 @@
 QT       += core gui
 
 QT += sql
+QT += printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -23,7 +24,7 @@ SOURCES += \
     conge.cpp \
     congemodel.cpp \
     dbaccess.cpp \
-    drhui.cpp \
+    directeurrh.cpp \
     employeui.cpp \
     flowcontroller.cpp \
     main.cpp \
@@ -38,7 +39,7 @@ HEADERS += \
     conge.h \
     congemodel.h \
     dbaccess.h \
-    drhui.h \
+    directeurrh.h \
     employeui.h \
     flowcontroller.h \
     managerui.h \
@@ -49,7 +50,7 @@ HEADERS += \
 FORMS += \
     adminui.ui \
     authentification.ui \
-    drhui.ui \
+    directeurrh.ui \
     employeui.ui \
     managerui.ui \
     profilui.ui
@@ -58,3 +59,9 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    ../images/images.qrc
+
+DISTFILES += \
+    ../images/118-1186893_computer-printer-png-clipart-printer-icon.png

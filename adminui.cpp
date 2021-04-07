@@ -19,7 +19,7 @@ AdminUI::AdminUI(QObject *controller) :
     ui->setupUi(this);
     this->setUpTableView();
 
-    //connect(ui->pushButtonCancel, SIGNAL(clicked()), controller, SLOT(onUIAdminCancel()));
+    connect(ui->pushButtonCancel, SIGNAL(clicked()), controller, SLOT(onUIAdminCancel()));
     connect(ui->pushButtonSubmit, SIGNAL(clicked()), this, SLOT(onSubmitClicked()));
     connect(ui->pushButtonDelete, SIGNAL(clicked()), this, SLOT(onDeleteClicked()));
     connect(ui->pushButtonClear, SIGNAL(clicked()), this, SLOT(onClearClicked()));
@@ -46,7 +46,7 @@ void AdminUI::setUpTableView()
 
 bool AdminUI::closeConfirmation()
 {
-    if (QMessageBox::Yes == QMessageBox::information(this, "Authentification",
+    if (QMessageBox::Yes == QMessageBox::information(this, "Administrateur",
                                  "Voulez-vous vraiment quitter ?", QMessageBox::Button::Yes, QMessageBox::Button::Cancel))
     {
         return true;

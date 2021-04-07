@@ -27,6 +27,7 @@ public:
     bool readBy(QString nom);
     bool readBy(QString mail, QString password, User *user);
     void readAll();
+    void readAllConge();
 };
 
 #endif // USERMODEL_H

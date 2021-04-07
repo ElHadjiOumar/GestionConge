@@ -16,7 +16,7 @@ ManagerUI::ManagerUI(QObject *controller) : ui(new Ui::ManagerUI)
 {
     ui->setupUi(this);
     this->setUpTableView();
-
+    connect(ui->pushButtonCancel, SIGNAL(clicked()), controller, SLOT(onUIManagerCancel()));
     connect(ui->pushButtonProfil, SIGNAL(clicked()), controller, SLOT(onProfilClicked()));
     connect(ui->pushButtonSubmit, SIGNAL(clicked()), this, SLOT(onSubmitClicked()));
     connect(ui->tableViewUsers, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClicked(const QModelIndex &)));
@@ -77,7 +77,7 @@ bool ManagerUI::getInformations(Conge *conge)
 
 bool ManagerUI::closeConfirmation()
 {
-    if (QMessageBox::Yes == QMessageBox::information(this, "Authentification",
+    if (QMessageBox::Yes == QMessageBox::information(this, "Manager",
                                  "Voulez-vous vraiment quitter ?", QMessageBox::Button::Yes, QMessageBox::Button::Cancel))
     {
         return true;

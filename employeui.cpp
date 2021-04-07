@@ -20,7 +20,7 @@ EmployeUI::EmployeUI(User *user ,QObject *controller) : ui(new Ui::EmployeUI)
     modelLu->readCongeLU(user->getMatricule());
 
 
-    //connect(ui->pushButtonCancel, SIGNAL(clicked()), controller, SLOT(onUIAdminCancel()));
+    connect(ui->pushButtonCancel, SIGNAL(clicked()), controller, SLOT(onUIEmployeCancel()));
 
     connect(ui->pushButtonProfil, SIGNAL(clicked()), controller, SLOT(onProfilClicked()));
     connect(ui->pushButtonSubmit, SIGNAL(clicked()), controller, SLOT(onSubmitEmployeClicked()));
@@ -38,7 +38,40 @@ EmployeUI::EmployeUI(User *user ,QObject *controller) : ui(new Ui::EmployeUI)
                             " et " +demandeLu+" nouvelle(s) reponse(s) venant du manager ");
 
 
+    QDate aujourdhui = QDate::currentDate();
+        // QDate aujourdhui;
+           // aujourdhui.currentDate();
 
+            qDebug() << "beuss bi tey :" << aujourdhui;
+
+            QDate moisEnregistrement = user->getDate_inscription();
+            int ecart ,conge,solde,diviseur;
+
+            ecart = moisEnregistrement.daysTo(aujourdhui)  ;
+            diviseur=ecart/30;
+            if(diviseur>1){
+
+
+                qDebug() << "diviseur " << diviseur;
+                conge = user->getNbre_conge();
+                solde = conge + (diviseur*2) ;
+                qDebug() << "Solde conges " << solde;
+                if(solde>=30)
+                {
+                    user->setNbre_conge(0);
+                }
+                else
+                {
+                    user->setNbre_conge(solde);
+                }
+
+                user->setDate_inscription(aujourdhui);
+
+
+                modelNonlu->updateUser(*user);
+
+
+            }
 
     qDebug() << "EmployeUI Object is created. l'id est " << user->getMatricule();
 
@@ -66,7 +99,7 @@ void EmployeUI::setUpTableViewLu()
 
 bool EmployeUI::closeConfirmation()
 {
-    if (QMessageBox::Yes == QMessageBox::information(this, "Authentification",
+    if (QMessageBox::Yes == QMessageBox::information(this, "Employe",
                                  "Voulez-vous vraiment quitter ?", QMessageBox::Button::Yes, QMessageBox::Button::Cancel))
     {
         return true;

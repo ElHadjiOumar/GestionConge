@@ -13,42 +13,97 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 183, 124);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>390</x>
+      <x>34</x>
       <y>410</y>
-      <width>395</width>
+      <width>751</width>
       <height>31</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="3">
       <widget class="QPushButton" name="pushButtonClear">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="text">
         <string>Clear</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/images.qrc">
+         <normaloff>:/vider.png</normaloff>:/vider.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
        </property>
       </widget>
      </item>
      <item row="0" column="4">
       <widget class="QPushButton" name="pushButtonCancel">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="text">
         <string>Cancel</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/images.qrc">
+         <normaloff>:/download.jfif</normaloff>:/download.jfif</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
        </property>
       </widget>
      </item>
      <item row="0" column="2">
       <widget class="QPushButton" name="pushButtonDelete">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="text">
         <string>Delete</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/images.qrc">
+         <normaloff>:/delete.png</normaloff>:/delete.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
       <widget class="QPushButton" name="pushButtonSubmit">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="text">
         <string>Submit</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/images.qrc">
+         <normaloff>:/images (1).jfif</normaloff>:/images (1).jfif</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -59,7 +114,7 @@
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>461</width>
+      <width>521</width>
       <height>41</height>
      </rect>
     </property>
@@ -72,12 +127,29 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEditSearch"/>
+      <widget class="QLineEdit" name="lineEditSearch">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonSearch">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="text">
         <string>Search</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../images/images.qrc">
+         <normaloff>:/search.png</normaloff>:/search.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -91,6 +163,10 @@
       <width>461</width>
       <height>231</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="sizeAdjustPolicy">
      <enum>QAbstractScrollArea::AdjustIgnored</enum>
@@ -135,7 +211,11 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEditConge"/>
+      <widget class="QLineEdit" name="lineEditConge">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="labelNom">
@@ -145,7 +225,11 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEditNom"/>
+      <widget class="QLineEdit" name="lineEditNom">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
      </item>
      <item row="11" column="0">
       <widget class="QRadioButton" name="radioButtonCreate">
@@ -168,7 +252,11 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QLineEdit" name="lineEditPrenom"/>
+      <widget class="QLineEdit" name="lineEditPrenom">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="labelPrenom">
@@ -206,20 +294,35 @@
       </widget>
      </item>
      <item row="6" column="1">
-      <widget class="QLineEdit" name="lineEditAdresse"/>
+      <widget class="QLineEdit" name="lineEditAdresse">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
      </item>
      <item row="7" column="1">
-      <widget class="QLineEdit" name="lineEditLogin"/>
+      <widget class="QLineEdit" name="lineEditLogin">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
      </item>
      <item row="8" column="1">
       <widget class="QLineEdit" name="lineEditPassword">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="echoMode">
         <enum>QLineEdit::Password</enum>
        </property>
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QDateEdit" name="dateEdit"/>
+      <widget class="QDateEdit" name="dateEdit">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label_2">
@@ -229,7 +332,11 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEditMatricule"/>
+      <widget class="QLineEdit" name="lineEditMatricule">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
      </item>
      <item row="5" column="0">
       <widget class="QLabel" name="labelEnregistrement">
@@ -240,6 +347,9 @@
      </item>
      <item row="5" column="1">
       <widget class="QDateEdit" name="dateEdit_2">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -266,6 +376,9 @@
      </item>
      <item>
       <widget class="QLineEdit" name="lineEditIdentifiant">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -281,6 +394,9 @@
       <width>101</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
     </property>
     <item>
      <property name="text">
@@ -323,12 +439,21 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuAdministrator">
+    <property name="title">
+     <string>Administrator</string>
+    </property>
+   </widget>
+   <addaction name="menuAdministrator"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="../images/images.qrc"/>
+  <include location="../images/images.qrc"/>
+ </resources>
  <connections/>
 </ui>
