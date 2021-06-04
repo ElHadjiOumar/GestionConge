@@ -115,12 +115,12 @@ void CongeModel::readCongeNonLU(User *user)
     qDebug () << "Conges displayed successfully!";
     dbAccess->close();
 }
-void CongeModel::readCongeLU(User *user)
+void CongeModel::readCongeLU(QString matricule)
 {
     dbAccess->open();
 
      QSqlDatabase database = dbAccess->database();
-    this->setQuery("SELECT id,employe_id, nbre_conge, date_debut,date_fin,status,motif FROM t_conge_lu WHERE employe_id=\""+user->getMatricule()+"\"", database);
+    this->setQuery("SELECT id,employe_id, nbre_conge, date_debut,date_fin,status,motif FROM t_conge_lu WHERE employe_id=\""+matricule+"\"", database);
 
 
      this->setHeaderData(0, Qt::Horizontal, tr("Id"));
@@ -161,6 +161,45 @@ void CongeModel::updateLU(Conge conge)
     dbAccess->close();
 }
 
+void CongeModel::updateConge(User *user)
+{
+    qDebug () << "Nbre conge "<< user->getNbre_conge() <<" id " << user->getId() ;
+    dbAccess->open();
+    qDebug () << "Nbre conge b"<< user->getNbre_conge() <<" id " << user->getId() ;
+    QSqlQuery query(dbAccess->database());
+    query.prepare("UPDATE t_users SET nbre_conge=:nbre_conge WHERE id=:id");
+    query.bindValue(":nbre_conge", user->getNbre_conge());
+    query.bindValue(":id", user->getId());
+    query.exec();
+
+    qDebug () << "User" << user->getNom() << " updated successfully!" ;
+    dbAccess->close();
+}
+
+void CongeModel::updateUser(User user)
+{
+    dbAccess->open();
+
+    QSqlQuery query(dbAccess->database());
+    query.prepare("UPDATE t_users SET matricule=:matricule,nbre_conge=:nbre_conge,nom=:nom, prenom=:prenom, date_naiss=:date_naiss,date_inscription=:date_inscription, addresse=:addresse, mail=:mail,password=:password,type=:type WHERE id=:id");
+    query.bindValue(":matricule", user.getMatricule());
+    query.bindValue(":nom", user.getNom());
+    query.bindValue(":nbre_conge", user.getNbre_conge());
+    query.bindValue(":nom", user.getNom());
+    query.bindValue(":prenom", user.getPrenom());
+    query.bindValue(":date_naiss", user.getDate_naiss());
+    query.bindValue(":date_inscription", user.getDate_inscription());
+    query.bindValue(":addresse", user.getAddresse());
+    query.bindValue(":mail", user.getMail());
+    query.bindValue(":password", user.getPassword());
+    query.bindValue(":type", user.getType());
+    query.bindValue(":id", user.getId());
+    query.exec();
+
+    qDebug () << "User" << user.getNom() << " updated successfully!" ;
+    dbAccess->close();
+}
+
 void CongeModel::removeMAX()
 {
     dbAccess->open();
@@ -182,6 +221,18 @@ void CongeModel::removeNonLU(uint id)
     query.bindValue(":id", id);
     query.exec();
 
+    dbAccess->close();
+}
+void CongeModel::removeLU(uint id,QString matricule)
+{
+    dbAccess->open();
+
+    QSqlQuery query(dbAccess->database());
+    query.prepare("DELETE FROM t_conge_lu WHERE id=:id");
+    query.bindValue(":id", id);
+    query.exec();
+
+    readCongeLU(matricule);
     dbAccess->close();
 }
 QString CongeModel::countNonlu(){

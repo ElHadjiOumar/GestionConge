@@ -17,12 +17,15 @@ EmployeUI::EmployeUI(User *user ,QObject *controller) : ui(new Ui::EmployeUI)
     modelNonlu->readCongeNonLU(user);
 
     this->setUpTableViewLu();
-    modelLu->readCongeLU(user);
+    modelLu->readCongeLU(user->getMatricule());
+
 
 
     //connect(ui->pushButtonCancel, SIGNAL(clicked()), controller, SLOT(onUIAdminCancel()));
+
     connect(ui->pushButtonProfil, SIGNAL(clicked()), controller, SLOT(onProfilClicked()));
     connect(ui->pushButtonSubmit, SIGNAL(clicked()), controller, SLOT(onSubmitEmployeClicked()));
+    connect(ui->pushButtonSupprimer, SIGNAL(clicked()), this, SLOT(onDeleteClicked()));
     connect(ui->pushButtonClear, SIGNAL(clicked()), this, SLOT(onClearClicked()));
     connect(ui->tableViewUsers, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClickedNonlu(const QModelIndex &)));
     connect(ui->tableViewUsers_2, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClickedLu(const QModelIndex &)));
@@ -35,7 +38,30 @@ EmployeUI::EmployeUI(User *user ,QObject *controller) : ui(new Ui::EmployeUI)
                             " Vous avez : " + demandeNonlu +" demande(s) de congé(s) non lus"
                             " et " +demandeLu+" nouvelle(s) reponse(s) venant du manager ");
 
+    QDate aujourdhui;
+    aujourdhui.currentDate();
+
+    qDebug() << "La date d'aujourdhui est le :" << aujourdhui;
+
+    QDate moisEnregistrement = user->getDate_inscription();
+    int ecart ,conge,solde;
+
+    if(aujourdhui.month() > moisEnregistrement.month()){
+        ecart = aujourdhui.month() - moisEnregistrement.month();
+
+        conge = user->getNbre_conge();
+        solde = conge + ecart ;
+        user->setNbre_conge(solde);
+        user->setDate_inscription(aujourdhui);
+
+        modelNonlu->updateUser(*user);
+    }
+
+
     qDebug() << "EmployeUI Object is created. l'id est " << user->getMatricule();
+
+
+
 }
 
 void EmployeUI::setUpTableViewNonlu()
@@ -69,7 +95,7 @@ bool EmployeUI::closeConfirmation()
     return false;
 }
 
-bool EmployeUI::getInformations(Conge *conge)
+bool EmployeUI::getInformations(Conge *conge,User *user)
 {
     QDate date_debut = ui->dateEditDebut->date();
     QDate date_fin = ui->dateEditFin->date();
@@ -80,8 +106,25 @@ bool EmployeUI::getInformations(Conge *conge)
         QMessageBox::critical(this, "Error", "Veuillez remplir tous les champs!");
         return false;
     }
+    int solde = user->getNbre_conge();
+    int ecart = (date_debut.daysTo(date_fin) );
+    if(solde >= ecart ){
+        conge->setNbre_conge(ecart);
+        int resultat;
+        resultat = solde - ecart ;
+        qDebug() << "solde  " << solde ;
+        qDebug() << "ecart  " << ecart ;
+        qDebug() << "resultat  " << resultat ;
+        //QString soldeStr = (QString)solde ;
+        //qDebug() << "soldeSTR  " << soldeStr ;
+        user->setNbre_conge(resultat);
 
-    conge->setNbre_conge(date_debut.daysTo(date_fin));
+    }
+    else{
+        QMessageBox::critical(this, "Error", "Votre solde de conge est inferieur au nombre de jour demandé , veillez soumettre une plus petite plage");
+        return false;
+    }
+
     conge->setDate_debut(date_debut);
     conge->setDate_fin(date_fin);
     conge->setMotif(motif);
@@ -95,9 +138,10 @@ bool EmployeUI::getInformations(Conge *conge)
 void EmployeUI::createConge(User *user)
 {
     Conge conge;
-    if (true == getInformations(&conge))
+    if (true == getInformations(&conge,user))
     {
         modelNonlu->create(*user, conge);
+        modelNonlu->updateConge(user);
         clear();
     }
 }
@@ -148,6 +192,9 @@ void EmployeUI::populateLu(uint row)
     QSqlRecord record = modelLu->record(row);
     QSqlField field = record.field(0);
 
+    ui->lineEditId->setText(field.value().toString());
+    ui->lineEditEmploye_id->setText(record.field(1).value().toString());
+    ui->lineEditConge->setText(record.field(2).value().toString());
     ui->dateEditDebutLu->setDate(record.field(3).value().toDate());
     ui->dateEditFinLu->setDate(record.field(4).value().toDate());
     ui->lineEditStatusLu->setText(record.field(5).value().toString());
@@ -175,6 +222,25 @@ void EmployeUI::onClearClicked()
     clear();
 }
 
+
+void EmployeUI::onDeleteClicked()
+{
+    QString identifiant = ui->lineEditId->text();
+    QString matricule = ui->lineEditEmploye_id->text();
+    if (identifiant.isEmpty())
+    {
+        QMessageBox::critical(this, "Error", "Veuillez sélectionner un utilisateur!");
+    }
+    else
+    {
+        if (QMessageBox::Yes == QMessageBox::information(this, "Confirmation", "Voulez-vous vraiment supprimer cette reponse , cette action est irreversible  ?",
+                                                         QMessageBox::Button::Yes, QMessageBox::Button::Cancel))
+        {
+            modelLu->removeLU(identifiant.toUInt(),matricule);
+            selectFirstRowLu();
+        }
+    }
+}
 
 void EmployeUI::clear()
 {

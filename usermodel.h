@@ -11,6 +11,7 @@ class UserModel : public QSqlQueryModel
 {
 private:
     DBAccess *dbAccess;
+
 public:
     UserModel(DBAccess *dbAccess);
     ~UserModel();
@@ -21,6 +22,7 @@ public:
     // CRUD methods
     void create(User user);
     void update(User user);
+
     void remove(uint id);
     bool readBy(QString nom);
     bool readBy(QString mail, QString password, User *user);

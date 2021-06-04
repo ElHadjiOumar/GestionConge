@@ -51,22 +51,22 @@ bool AdminUI::closeConfirmation()
     {
         return true;
     }
-
     return false;
 }
 
 bool AdminUI::getUserInformations(User *user)
 {
     QString matricule = ui->lineEditMatricule->text();
-    QString nbre_conge = ui->lineEditConge->text();
+    uint nbre_conge = ui->lineEditConge->text().toUInt();
     QString nom = ui->lineEditNom->text();
     QString prenom = ui->lineEditPrenom->text();
     QDate date_naiss = ui->dateEdit->date();
+    QDate date_inscription = ui->dateEdit_2->date();
     QString addresse = ui->lineEditAdresse->text();
     QString login = ui->lineEditLogin->text();
     QString password = ui->lineEditPassword->text();
 
-    if ( nbre_conge.isEmpty()||matricule.isEmpty()||nom.isEmpty() || prenom.isEmpty() || date_naiss.isNull() || addresse.isEmpty()  || login.isEmpty() || password.isEmpty())
+    if ( matricule.isEmpty()||nom.isEmpty() || prenom.isEmpty() || date_naiss.isNull() || addresse.isEmpty()  || login.isEmpty() || password.isEmpty())
     {
         QMessageBox::critical(this, "Error", "Veuillez remplir tous les champs!");
         return false;
@@ -75,6 +75,7 @@ bool AdminUI::getUserInformations(User *user)
     if (ui->radioButtonUpdate->isChecked()) // Update process ...
     {
         QString identifiant = ui->lineEditIdentifiant->text();
+
         if (identifiant.isEmpty())
         {
             QMessageBox::critical(this, "Error", "Veuillez sélectionner un utilisateur svp!");
@@ -82,11 +83,13 @@ bool AdminUI::getUserInformations(User *user)
         }
 
         user->setId(identifiant.toUInt());
+
     }
 
     user->setNom(nom);
     user->setPrenom(prenom);
     user->setDate_naiss(date_naiss);
+    user->setDate_inscription(date_inscription.currentDate());
     user->setAdresse(addresse);
     user->setNbre_conge(nbre_conge);
     user->setMatricule(matricule);
@@ -185,7 +188,8 @@ void AdminUI::onRadioCreateClicked()
 void AdminUI::onRadioUpdateClicked()
 {
     QString identifiant = ui->lineEditIdentifiant->text();
-    if (identifiant.isEmpty())
+    QDate date_inscription = ui->dateEdit_2->date();
+    if (identifiant.isEmpty() || date_inscription.isNull())
     {
         activateCreate();
     }
@@ -202,9 +206,10 @@ void AdminUI::populate(uint row)
     ui->lineEditNom->setText(record.field(3).value().toString());
     ui->lineEditPrenom->setText(record.field(4).value().toString());
     ui->dateEdit->setDate(record.field(5).value().toDate());
-    ui->lineEditAdresse->setText(record.field(6).value().toString());
-    ui->lineEditLogin->setText(record.field(7).value().toString());
-    ui->lineEditPassword->setText(record.field(8).value().toString());
+    ui->dateEdit_2->setDate(record.field(6).value().toDate());
+    ui->lineEditAdresse->setText(record.field(7).value().toString());
+    ui->lineEditLogin->setText(record.field(8).value().toString());
+    ui->lineEditPassword->setText(record.field(9).value().toString());
 }
 
 void AdminUI::onTableClicked(const QModelIndex &index)
@@ -253,6 +258,7 @@ void AdminUI::clear()
     ui->lineEditNom->clear();
     ui->lineEditPrenom->clear();
     ui->dateEdit->clear();
+    ui->dateEdit_2->clear();
     ui->lineEditAdresse->clear();
     ui->lineEditConge->clear();
     ui->lineEditMatricule->clear();
@@ -269,6 +275,8 @@ void AdminUI::activateCreate()
     ui->pushButtonSubmit->setText("Create");
     ui->lineEditIdentifiant->setVisible(false);
     ui->labelId->setVisible(false);
+    ui->dateEdit_2->setVisible(false);
+    ui->labelEnregistrement->setVisible(false);
 }
 
 void AdminUI::activateUpdate()
@@ -277,6 +285,8 @@ void AdminUI::activateUpdate()
     ui->pushButtonSubmit->setText("Update");
     ui->lineEditIdentifiant->setVisible(true);
     ui->labelId->setVisible(true);
+    ui->dateEdit_2->setVisible(true);
+    ui->labelEnregistrement->setVisible(true);
 }
 
 AdminUI::~AdminUI()

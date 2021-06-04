@@ -23,9 +23,11 @@ public:
     void create(User user,Conge conge);
     void updateNonLU(Conge conge);
     void updateLU(Conge conge);
+    void updateConge(User *user);
+    void updateUser(User user);
     void copie(Conge conge);
     void removeNonLU(uint id);
-    void removeLU(uint id);
+    void removeLU(uint id,QString matricule);
     void removeMAX();
     QString countNonlu();
     QString countNonluConge(User *user);
@@ -34,7 +36,7 @@ public:
     void readAll();
     void readAllLu();
     void readCongeNonLU(User *user);
-    void readCongeLU(User *user);
+    void readCongeLU(QString matricule);
 };
 
 #endif // CONGEMODEL_H

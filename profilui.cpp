@@ -25,7 +25,7 @@ void ProfilUI::saisirCoordonnes(User *employe)
     ui->dateEdit->setDate(employe->getDate_naiss());
     ui->label_Adresse->setText(employe->getAddresse());
     ui->label_Mail->setText(employe->getMail());
-    ui->label_Conge->setText(employe->getNbre_conge());
+    ui->spinBox->setValue(employe->getNbre_conge());
 
 
 }

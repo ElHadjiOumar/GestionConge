@@ -10,6 +10,7 @@
 #include "dbaccess.h"
 #include <user.h>
 #include "congemodel.h"
+#include "usermodel.h"
 
 namespace Ui {
 class EmployeUI;
@@ -35,6 +36,7 @@ private slots:
     void onTableClickedNonlu(const QModelIndex &index);
     void onTableClickedLu(const QModelIndex &index);
     void onClearClicked();
+    void onDeleteClicked();
 
 private:
     Ui::EmployeUI *ui;
@@ -45,7 +47,7 @@ private:
 
 
     void setInformation();
-    bool getInformations(Conge *conge);
+    bool getInformations(Conge *conge,User *user);
     void setUpTableViewLu();
     void setUpTableViewNonlu();
     void populateNonlu(uint row);
